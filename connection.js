@@ -1,7 +1,7 @@
-const knex = require("knex");
+const knex = require('knex');
 const {
   configObj: { client, host, password, user, database, port }
-} = require("./credentials");
+} = require('./credentials');
 
 const config = {
   host,
@@ -10,7 +10,5 @@ const config = {
   database,
   port
 };
-
-console.log(config)
 
 exports.connection = knex({ client, connection: config });
