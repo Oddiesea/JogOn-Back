@@ -7,3 +7,7 @@ exports.fetchAllFlags = () => {
       return flags;
     });
 };
+
+exports.addFlag = flagObj => {
+  return connection('flags').insert(flagObj, '*');
+};
