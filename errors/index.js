@@ -1,3 +1,8 @@
+exports.handleCustomErrors = (err, req, res, next) => {
+  if (err.status) res.status(err.status).send({ msg: err.msg });
+  else next(err);
+};
+
 // PSQL ERRORS
 exports.handlePsql400s = (err, req, res, next) => {
   const codes = ['23502', '22P02'];
@@ -22,6 +27,7 @@ exports.handle405s = (req, res, next) => {
   res.status(405).send({ msg: 'Invalid method.' });
 };
 
+// SERVER ERRORS
 exports.handle500s = (err, req, res, next) => {
   console.log(err);
   res.status(500).send('Server error.');
