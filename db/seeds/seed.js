@@ -1,6 +1,5 @@
-process.env.NODE_ENV = 'test';
-const connection = require('../../connection');
-console.log(connection.schema);
-connection.schema.createTable('test', testTable => {
-  testTable.string('slug').primary();
-});
+exports.seed = function(connection) {
+  return connection.migrate.rollback().then(() => {
+    return connection.migrate.latest();
+  });
+};

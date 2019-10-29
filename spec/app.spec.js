@@ -6,6 +6,7 @@ const request = require('supertest');
 const connection = require('../connection');
 
 after(() => connection.destroy());
+beforeEach(() => connection.seed.run());
 
 describe('/api', () => {
   describe('/users', () => {
