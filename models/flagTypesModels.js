@@ -7,3 +7,11 @@ exports.fetchAllFlagTypes = () => {
       return flagTypes;
     });
 };
+
+exports.addFlagType = flagTypeObj => {
+  return connection('flag_types')
+    .insert(flagTypeObj, '*')
+    .then(([flagType]) => {
+      return flagType;
+    });
+};

@@ -172,4 +172,54 @@ describe('/api', () => {
       });
     });
   });
+  describe('flag_types', () => {
+    describe('GET', () => {
+      it('status: 200, responds with an object containing an array of all flag types', () => {
+        return request(app)
+          .get('/api/flag_types')
+          .expect(200)
+          .then(({ body: { flagTypes } }) => {
+            expect(flagTypes.length).to.equal(4);
+            expect(flagTypes[0]).to.contain.keys('flag_type_id', 'flag_type');
+          });
+      });
+    });
+    describe('POST', () => {
+      it('status: 201, responds with an object of the new flag type', () => {
+        return request(app)
+          .post('/api/flag_types')
+          .send({
+            flag_type: 'angry dogs'
+          })
+          .expect(201)
+          .then(({ body: { flagType } }) => {
+            expect(flagType).to.contain.keys('flag_type', 'flag_type_id');
+            expect(flagType.flag_type).to.equal('angry dogs');
+          });
+      });
+      it('status: 400, where flagType object is missing info', () => {
+        return request(app)
+          .post('/api/flag_types')
+          .send({})
+          .expect(400)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.equal('Bad request.');
+          });
+      });
+    });
+    describe('INVALID METHODS', () => {
+      it('status: 405 for methods DELETE, PATCH, PUT', () => {
+        const invalidMethods = ['delete', 'patch', 'put'];
+        const promises = invalidMethods.map(method => {
+          return request(app)
+            [method]('/api/flag_types')
+            .expect(405)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Invalid method.');
+            });
+        });
+        return Promise.all(promises);
+      });
+    });
+  });
 });
