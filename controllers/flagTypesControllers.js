@@ -11,7 +11,6 @@ exports.getAllFlagTypes = (req, res, next) => {
 exports.postFlagType = (req, res, next) => {
   addFlagType(req.body)
     .then(flagType => {
-      console.log(flagType);
       res.status(201).send({ flagType });
     })
     .catch(next);

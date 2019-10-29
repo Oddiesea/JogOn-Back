@@ -172,7 +172,7 @@ describe('/api', () => {
       });
     });
   });
-  describe('flag_types', () => {
+  describe('/flag_types', () => {
     describe('GET', () => {
       it('status: 200, responds with an object containing an array of all flag types', () => {
         return request(app)
@@ -213,6 +213,99 @@ describe('/api', () => {
         const promises = invalidMethods.map(method => {
           return request(app)
             [method]('/api/flag_types')
+            .expect(405)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Invalid method.');
+            });
+        });
+        return Promise.all(promises);
+      });
+    });
+  });
+  describe('/routes', () => {
+    describe('GET', () => {
+      it('status: 200, responds with an object containing an array of all routes', () => {
+        return request(app)
+          .get('/api/routes')
+          .expect(200)
+          .then(({ body: { routes } }) => {
+            expect(routes.length).to.equal(4);
+            expect(routes[0]).to.contain.keys(
+              'route_id',
+              'poly',
+              'length_in_km',
+              'user_id',
+              'created_at'
+            );
+          });
+      });
+    });
+    describe('POST', () => {
+      it('status: 201, responds with an object of the new route', () => {
+        return request(app)
+          .post('/api/routes')
+          .send({
+            poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
+            length_in_km: 9.2,
+            user_id: 1
+          })
+          .expect(201)
+          .then(({ body: { route } }) => {
+            expect(route).to.contain.keys(
+              'route_id',
+              'poly',
+              'length_in_km',
+              'user_id',
+              'created_at'
+            );
+            expect(route.length_in_km).to.equal(9.2);
+          });
+      });
+      it('status: 400, where route object is missing info', () => {
+        return request(app)
+          .post('/api/routes')
+          .send({
+            length_in_km: 9.2,
+            user_id: 1
+          })
+          .expect(400)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.equal('Bad request.');
+          });
+      });
+      it('status: 400, where route object contains invalid info', () => {
+        return request(app)
+          .post('/api/routes')
+          .send({
+            poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
+            length_in_km: 'HELLO!!',
+            user_id: 1
+          })
+          .expect(400)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.equal('Bad request.');
+          });
+      });
+      it('status: 422, where route object contains a non-existent user_id', () => {
+        return request(app)
+          .post('/api/routes')
+          .send({
+            poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
+            length_in_km: 9.2,
+            user_id: 999
+          })
+          .expect(422)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.equal('Unprocessable entity.');
+          });
+      });
+    });
+    describe.only('INVALID METHODS', () => {
+      it('status: 405 for methods DELETE, PATCH, PUT', () => {
+        const invalidMethods = ['delete', 'patch', 'put'];
+        const promises = invalidMethods.map(method => {
+          return request(app)
+            [method]('/api/routes')
             .expect(405)
             .then(({ body: { msg } }) => {
               expect(msg).to.equal('Invalid method.');

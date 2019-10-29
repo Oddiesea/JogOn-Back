@@ -7,3 +7,11 @@ exports.fetchAllRoutes = () => {
       return routes;
     });
 };
+
+exports.addRoute = routeObj => {
+  return connection('routes')
+    .insert(routeObj, '*')
+    .then(([route]) => {
+      return route;
+    });
+};
