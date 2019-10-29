@@ -18,7 +18,11 @@
   "scripts": {
     "migrate-make": "knex migrate:make",
     "test-app": "mocha spec/app.spec.js",
-    "dev": "nodemon listen.js"
+    "dev": "nodemon listen.js",
+    "seed": "knex seed:run",
+    "seed-test": "NODE_ENV=test knex seed:run",
+    "migrate-latest-test": "NODE_ENV=test knex migrate:latest",
+    "migrate-rollback-test": "NODE_ENV=test knex migrate:rollback"
   },
   "keywords": [],
   "author": "",

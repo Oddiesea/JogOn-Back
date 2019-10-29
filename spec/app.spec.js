@@ -6,7 +6,10 @@ const request = require('supertest');
 const connection = require('../connection');
 
 after(() => connection.destroy());
-beforeEach(() => connection.seed.run());
+beforeEach(function() {
+  this.timeout(10000);
+  return connection.seed.run();
+});
 
 describe('/api', () => {
   describe('/users', () => {
@@ -16,7 +19,8 @@ describe('/api', () => {
           .get('/api/users')
           .expect(200)
           .then(({ body: { users } }) => {
-            expect(users[0]).to.eql({ username: 'jimbo', user_id: 1 });
+            expect(users.length).to.equal(6);
+            expect(users[0]).to.contain.keys('username', 'user_id');
           });
       });
     });
