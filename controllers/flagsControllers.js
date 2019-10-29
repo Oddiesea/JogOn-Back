@@ -7,7 +7,9 @@ exports.getAllFlags = (req, res, next) => {
 };
 
 exports.postFlag = (req, res, next) => {
-  addFlag(req.body).then(addedFlag => {
-    console.log(addedFlag);
-  });
+  addFlag(req.body)
+    .then(flag => {
+      res.status(201).send({ flag });
+    })
+    .catch(next);
 };

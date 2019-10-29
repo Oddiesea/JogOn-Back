@@ -9,5 +9,9 @@ exports.fetchAllFlags = () => {
 };
 
 exports.addFlag = flagObj => {
-  return connection('flags').insert(flagObj, '*');
+  return connection('flags')
+    .insert(flagObj, '*')
+    .then(([flag]) => {
+      return flag;
+    });
 };

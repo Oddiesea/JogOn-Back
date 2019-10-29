@@ -14,7 +14,7 @@ beforeEach(function() {
 describe('/api', () => {
   describe('/users', () => {
     describe('GET', () => {
-      it('status: 200, returns an object containing an array of all users', () => {
+      it('status: 200, responds with an object containing an array of all users', () => {
         return request(app)
           .get('/api/users')
           .expect(200)
@@ -56,6 +56,105 @@ describe('/api', () => {
             });
         });
         return Promise.all(promises);
+      });
+    });
+  });
+  describe('/flags', () => {
+    describe('GET', () => {
+      it('status: 200, responds with an object containing an array of all flags', () => {
+        return request(app)
+          .get('/api/flags')
+          .expect(200)
+          .then(({ body: { flags } }) => {
+            expect(flags.length).to.equal(4);
+            expect(flags[0]).to.contain.keys(
+              'flag_id',
+              'longitude',
+              'latitude',
+              'user_id',
+              'flag_type_id',
+              'created_at'
+            );
+          });
+      });
+    });
+    describe('POST', () => {
+      it('status: 201, responds with an object of the new flag', () => {
+        return request(app)
+          .post('/api/flags')
+          .send({
+            latitude: 66.66,
+            longitude: 77.77,
+            user_id: 1,
+            flag_type_id: 1
+          })
+          .expect(201)
+          .then(({ body: { flag } }) => {
+            expect(flag).to.contain.keys(
+              'flag_id',
+              'longitude',
+              'latitude',
+              'user_id',
+              'flag_type_id',
+              'created_at'
+            );
+            expect(flag.longitude).to.equal(77.77);
+          });
+      });
+      it('status: 400, where flag object is missing info', () => {
+        return request(app)
+          .post('/api/flags')
+          .send({
+            latitude: 66.66,
+            user_id: 1,
+            flag_type_id: 1
+          })
+          .expect(400)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.equal('Bad request.');
+          });
+      });
+      it('status: 400, where flag object contains invalid info', () => {
+        return request(app)
+          .post('/api/flags')
+          .send({
+            latitude: 66.66,
+            longitude: 'HELLO!!',
+            user_id: 1,
+            flag_type_id: 1
+          })
+          .expect(400)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.equal('Bad request.');
+          });
+      });
+      it('status: 422, where flag object contains a non-existent user_id', () => {
+        return request(app)
+          .post('/api/flags')
+          .send({
+            latitude: 66.66,
+            longitude: 77.77,
+            user_id: 999,
+            flag_type_id: 1
+          })
+          .expect(422)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.equal('Unprocessable entity.');
+          });
+      });
+      it('status: 422, where flag object contains a non-existent flag_type_id', () => {
+        return request(app)
+          .post('/api/flags')
+          .send({
+            latitude: 66.66,
+            longitude: 77.77,
+            user_id: 1,
+            flag_type_id: 999
+          })
+          .expect(422)
+          .then(({ body: { msg } }) => {
+            expect(msg).to.equal('Unprocessable entity.');
+          });
       });
     });
   });
