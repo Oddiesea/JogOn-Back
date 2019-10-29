@@ -1,4 +1,4 @@
-const { connection } = require('../connection');
+const connection = require('../connection');
 
 exports.fetchAllFlagTypes = () => {
   return connection('flag_types')
