@@ -157,5 +157,19 @@ describe('/api', () => {
           });
       });
     });
+    describe('INVALID METHODS', () => {
+      it('status: 405 for methods DELETE, PATCH, PUT', () => {
+        const invalidMethods = ['delete', 'patch', 'put'];
+        const promises = invalidMethods.map(method => {
+          return request(app)
+            [method]('/api/flags')
+            .expect(405)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Invalid method.');
+            });
+        });
+        return Promise.all(promises);
+      });
+    });
   });
 });
