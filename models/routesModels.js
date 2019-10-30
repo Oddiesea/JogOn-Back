@@ -5,11 +5,14 @@ exports.fetchAllRoutes = ({ longitude, latitude }) => {
     .select('*')
     .modify(query => {
       if (longitude && latitude) {
-        query.where('longitude', '>', longitude);
+        query
+          .where('max_lat', '>=', latitude)
+          .andWhere('min_lat', '<=', latitude)
+          .andWhere('max_long', '>=', longitude)
+          .andWhere('min_long', '<=', longitude);
       }
     })
     .then(routes => {
-      console.log(routes);
       return routes;
     });
 };

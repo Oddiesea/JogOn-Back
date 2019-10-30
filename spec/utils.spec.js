@@ -14,10 +14,10 @@ describe('minMaxLatLong', () => {
   });
   it('returns an object with minLat, maxLat, minLong and maxLong values', () => {
     expect(minMaxLatLong(50, 1, 40, 4)).to.eql({
-      minLat: 49,
-      maxLat: 51,
-      minLong: 36,
-      maxLong: 44
+      min_lat: 49,
+      max_lat: 51,
+      min_long: 36,
+      max_long: 44
     });
   });
 });
@@ -28,10 +28,10 @@ describe('routeAreaFinder', () => {
   });
   it('returns an object with minLat, maxLat, minLong and maxLong values', () => {
     expect(routeAreaFinder({ points: [[1, 1], [2, 2], [3, 1]] })).to.eql({
-      minLat: 1,
-      maxLat: 3,
-      minLong: 1,
-      maxLong: 2
+      min_lat: 1,
+      max_lat: 3,
+      min_long: 1,
+      max_long: 2
     });
   });
 });

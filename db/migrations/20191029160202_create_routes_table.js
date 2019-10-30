@@ -9,10 +9,10 @@ exports.up = function(connection) {
       .inTable('users')
       .notNullable();
     routesTable.timestamp('created_at').defaultTo(connection.fn.now());
-    routesTable.specificType('latitude', 'double precision').notNullable();
-    routesTable.specificType('longitude', 'double precision').notNullable();
-    routesTable.specificType('lat_delta', 'double precision').notNullable();
-    routesTable.specificType('long_delta', 'double precision').notNullable();
+    routesTable.specificType('min_lat', 'double precision').notNullable();
+    routesTable.specificType('max_lat', 'double precision').notNullable();
+    routesTable.specificType('min_long', 'double precision').notNullable();
+    routesTable.specificType('max_long', 'double precision').notNullable();
   });
 };
 

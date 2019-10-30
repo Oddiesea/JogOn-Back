@@ -8,10 +8,10 @@ exports.minMaxLatLong = (
     //PADDING SHOULD BE FLAG RADIUS
     const padding = 0;
     return {
-      minLat: latitude - latitudeDelta - padding,
-      maxLat: latitude + latitudeDelta + padding,
-      minLong: longitude - longitudeDelta - padding,
-      maxLong: longitude + longitudeDelta + padding
+      min_lat: latitude - latitudeDelta - padding,
+      max_lat: latitude + latitudeDelta + padding,
+      min_long: longitude - longitudeDelta - padding,
+      max_long: longitude + longitudeDelta + padding
     };
   }
 };
@@ -28,10 +28,10 @@ exports.routeAreaFinder = route => {
       longs.push(coord[1]);
     });
     return {
-      minLat: Math.min(...lats) - padding,
-      maxLat: Math.max(...lats) + padding,
-      minLong: Math.min(...longs) - padding,
-      maxLong: Math.max(...longs) + padding
+      min_lat: Math.min(...lats) - padding,
+      max_lat: Math.max(...lats) + padding,
+      min_long: Math.min(...longs) - padding,
+      max_long: Math.max(...longs) + padding
     };
   }
 };
