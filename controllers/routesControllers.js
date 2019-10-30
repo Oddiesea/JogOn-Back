@@ -1,4 +1,5 @@
 const { fetchAllRoutes, addRoute } = require('../models/routesModels');
+const { minMaxLatLong } = require('../utils/utils');
 
 exports.getAllRoutes = (req, res, next) => {
   fetchAllRoutes(req.query)
@@ -9,7 +10,9 @@ exports.getAllRoutes = (req, res, next) => {
 };
 
 exports.postRoute = (req, res, next) => {
-  addRoute(req.body)
+  const formattedRoute = minMaxLatLong(req.body);
+  console.log(formattedRoute);
+  addRoute(formattedRoute)
     .then(route => {
       res.status(201).send({ route });
     })

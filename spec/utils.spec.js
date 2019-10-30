@@ -7,17 +7,23 @@ const {
 
 describe('minMaxLatLong', () => {
   it('returns nothing when not passed all necessary fields', () => {
-    expect(minMaxLatLong()).to.equal(undefined);
-    expect(minMaxLatLong(undefined, 1, 1, 1)).to.equal(undefined);
-    expect(minMaxLatLong(1, 1, 1, undefined)).to.equal(undefined);
-    expect(minMaxLatLong(1, 1, undefined, 1)).to.equal(undefined);
+    expect(
+      minMaxLatLong({ latitude: 1.1, longitude: 2.2, longitudeDelta: 2.2 })
+    ).to.equal(undefined);
   });
   it('returns an object with minLat, maxLat, minLong and maxLong values', () => {
-    expect(minMaxLatLong(50, 1, 40, 4)).to.eql({
-      min_lat: 49,
-      max_lat: 51,
-      min_long: 36,
-      max_long: 44
+    expect(
+      minMaxLatLong({
+        latitude: 1.1,
+        longitude: 2.2,
+        latitudeDelta: 1.1,
+        longitudeDelta: 2.2
+      })
+    ).to.eql({
+      min_lat: 0,
+      max_lat: 2.2,
+      min_long: 0,
+      max_long: 4.4
     });
   });
 });

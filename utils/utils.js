@@ -1,18 +1,18 @@
-exports.minMaxLatLong = (
-  latitude,
-  latitudeDelta,
-  longitude,
-  longitudeDelta
-) => {
+exports.minMaxLatLong = route => {
+  const { latitude, latitudeDelta, longitude, longitudeDelta } = route;
   if (latitude && latitudeDelta && longitude && longitudeDelta) {
     //PADDING SHOULD BE FLAG RADIUS
     const padding = 0;
-    return {
-      min_lat: latitude - latitudeDelta - padding,
-      max_lat: latitude + latitudeDelta + padding,
-      min_long: longitude - longitudeDelta - padding,
-      max_long: longitude + longitudeDelta + padding
-    };
+
+    route.min_lat = latitude - latitudeDelta - padding;
+    route.max_lat = latitude + latitudeDelta + padding;
+    route.min_long = longitude - longitudeDelta - padding;
+    route.max_long = longitude + longitudeDelta + padding;
+    delete route.latitude;
+    delete route.longitude;
+    delete route.latitudeDelta;
+    delete route.longitudeDelta;
+    return route;
   }
 };
 

@@ -250,7 +250,7 @@ describe('/api', () => {
         });
       });
     });
-    describe('POST', () => {
+    describe.only('POST', () => {
       it('status: 201, responds with an object of the new route', () => {
         return request(app)
           .post('/api/routes')
@@ -258,10 +258,10 @@ describe('/api', () => {
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
             user_id: 1,
-            min_lat: 1.1,
-            max_lat: 2.2,
-            min_long: 1.1,
-            max_long: 2.2
+            latitude: 1.1,
+            longitude: 2.2,
+            latitudeDelta: 1.1,
+            longitudeDelta: 2.2
           })
           .expect(201)
           .then(({ body: { route } }) => {
@@ -298,10 +298,10 @@ describe('/api', () => {
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 'HELLO!!',
             user_id: 1,
-            min_lat: 1.1,
-            max_lat: 2.2,
-            min_long: 1.1,
-            max_long: 2.2
+            latitude: 1.1,
+            longitude: 2.2,
+            latitudeDelta: 1.1,
+            longitudeDelta: 2.2
           })
           .expect(400)
           .then(({ body: { msg } }) => {
@@ -315,10 +315,10 @@ describe('/api', () => {
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
             user_id: 999,
-            min_lat: 1.1,
-            max_lat: 2.2,
-            min_long: 1.1,
-            max_long: 2.2
+            latitude: 1.1,
+            longitude: 2.2,
+            latitudeDelta: 1.1,
+            longitudeDelta: 2.2
           })
           .expect(422)
           .then(({ body: { msg } }) => {
