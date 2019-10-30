@@ -12,6 +12,7 @@ exports.postFlag = (req, res, next) => {
   addFlag(req.body)
     .then(flag => {
       res.status(201).send({ flag });
+      // fetchAllRoutes({longitude:flag.longitude, latitude:flag.latitude}).then(()=>{})
     })
     .catch(next);
 };

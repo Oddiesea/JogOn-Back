@@ -239,6 +239,16 @@ describe('/api', () => {
             );
           });
       });
+      describe('QUERIES', () => {
+        it('accepts a query of ?latitude=**&longitude=**', () => {
+          return request(app)
+            .get('/api/routes?latitude=20.1&longitude=2')
+            .expect(200)
+            .then(({ body: { routes } }) => {
+              expect(routes.length).to.equal(1);
+            });
+        });
+      });
     });
     describe.only('POST', () => {
       it('status: 201, responds with an object of the new route', () => {
@@ -250,8 +260,8 @@ describe('/api', () => {
             user_id: 1,
             latitude: 1.1,
             longitude: 2.2,
-            lat_delta: 1.1,
-            long_delta: 2.2
+            latitudeDelta: 1.1,
+            longitudeDelta: 2.2
           })
           .expect(201)
           .then(({ body: { route } }) => {
@@ -261,10 +271,10 @@ describe('/api', () => {
               'length_in_km',
               'user_id',
               'created_at',
-              'latitude',
-              'longitude',
-              'lat_delta',
-              'long_delta'
+              'max_lat',
+              'min_lat',
+              'min_long',
+              'max_long'
             );
             expect(route.length_in_km).to.equal(9.2);
           });
@@ -290,8 +300,8 @@ describe('/api', () => {
             user_id: 1,
             latitude: 1.1,
             longitude: 2.2,
-            lat_delta: 1.1,
-            long_delta: 2.2
+            latitudeDelta: 1.1,
+            longitudeDelta: 2.2
           })
           .expect(400)
           .then(({ body: { msg } }) => {
@@ -304,7 +314,11 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
-            user_id: 999
+            user_id: 999,
+            latitude: 1.1,
+            longitude: 2.2,
+            latitudeDelta: 1.1,
+            longitudeDelta: 2.2
           })
           .expect(422)
           .then(({ body: { msg } }) => {
