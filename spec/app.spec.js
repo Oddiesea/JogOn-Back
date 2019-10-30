@@ -239,8 +239,18 @@ describe('/api', () => {
             );
           });
       });
+      describe.only('QUERIES', () => {
+        it('accepts a query of ?latitude=**&longitude=**', () => {
+          return request(app)
+            .get('/api/routes?latitude=1&longitude=2')
+            .expect(200)
+            .then(({ body: { routes } }) => {
+              expect(routes.length).to.equal(3);
+            });
+        });
+      });
     });
-    describe.only('POST', () => {
+    describe('POST', () => {
       it('status: 201, responds with an object of the new route', () => {
         return request(app)
           .post('/api/routes')

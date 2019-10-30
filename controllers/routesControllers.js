@@ -1,7 +1,7 @@
 const { fetchAllRoutes, addRoute } = require('../models/routesModels');
 
 exports.getAllRoutes = (req, res, next) => {
-  fetchAllRoutes()
+  fetchAllRoutes(req.query)
     .then(routes => {
       res.status(200).send({ routes });
     })

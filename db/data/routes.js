@@ -30,8 +30,8 @@ module.exports = [
     poly: 'fdguyihwegrfu6t5555555555555555555555555555555',
     length_in_km: 6.4,
     user_id: 4,
-    latitude: 1.1,
-    longitude: 2.2,
+    latitude: 10.1,
+    longitude: 20.2,
     lat_delta: 1.1,
     long_delta: 2.2
   }
