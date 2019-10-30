@@ -240,14 +240,18 @@ describe('/api', () => {
           });
       });
     });
-    describe('POST', () => {
+    describe.only('POST', () => {
       it('status: 201, responds with an object of the new route', () => {
         return request(app)
           .post('/api/routes')
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
-            user_id: 1
+            user_id: 1,
+            latitude: 1.1,
+            longitude: 2.2,
+            lat_delta: 1.1,
+            long_delta: 2.2
           })
           .expect(201)
           .then(({ body: { route } }) => {
@@ -256,7 +260,11 @@ describe('/api', () => {
               'poly',
               'length_in_km',
               'user_id',
-              'created_at'
+              'created_at',
+              'latitude',
+              'longitude',
+              'lat_delta',
+              'long_delta'
             );
             expect(route.length_in_km).to.equal(9.2);
           });
@@ -279,7 +287,11 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 'HELLO!!',
-            user_id: 1
+            user_id: 1,
+            latitude: 1.1,
+            longitude: 2.2,
+            lat_delta: 1.1,
+            long_delta: 2.2
           })
           .expect(400)
           .then(({ body: { msg } }) => {
@@ -300,7 +312,7 @@ describe('/api', () => {
           });
       });
     });
-    describe.only('INVALID METHODS', () => {
+    describe('INVALID METHODS', () => {
       it('status: 405 for methods DELETE, PATCH, PUT', () => {
         const invalidMethods = ['delete', 'patch', 'put'];
         const promises = invalidMethods.map(method => {
