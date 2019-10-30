@@ -8,6 +8,10 @@ exports.fetchAllUsers = () => {
     });
 };
 
+// exports.fetchUserById = user_id => {
+//   return connection('users').select('*').where('user_id', user_id)
+// }
+
 exports.addUser = userObj => {
   return connection('users')
     .insert(userObj, '*')

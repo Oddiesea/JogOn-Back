@@ -1,8 +1,8 @@
 exports.up = function(connection) {
   return connection.schema.createTable('flags', flagsTable => {
     flagsTable.increments('flag_id').primary();
-    flagsTable.float('latitude').notNullable();
-    flagsTable.float('longitude').notNullable();
+    flagsTable.specificType('latitude', 'double precision').notNullable();
+    flagsTable.specificType('longitude', 'double precision').notNullable();
     flagsTable
       .integer('user_id')
       .references('user_id')
