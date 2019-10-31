@@ -9,5 +9,5 @@ exports.fetchAllJunctions = () => {
 };
 
 exports.addJunctions = junctions => {
-  return connection('junctions').insert(junctions, '*');
+  return connection('junctions').insert(junctions);
 };

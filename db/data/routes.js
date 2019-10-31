@@ -33,9 +33,9 @@ module.exports = [
     poly: testPoly,
     length_in_km: 6.4,
     user_id: 4,
-    min_lat: 10.1,
-    max_lat: 20.2,
-    min_long: 1.1,
-    max_long: 2.2
+    min_lat: 15.0,
+    max_lat: 335.123456,
+    min_long: 1.5,
+    max_long: 3.3
   }
 ];

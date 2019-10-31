@@ -27,7 +27,7 @@ exports.postRoute = (req, res, next) => {
             return { flag_id: flag.flag_id, route_id: route.route_id };
           }
         });
-        addJunctions(junctions);
+        return addJunctions(junctions);
       });
     })
     .catch(next);
