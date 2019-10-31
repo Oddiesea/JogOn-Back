@@ -4,7 +4,7 @@ exports.minMaxLatLong = region => {
   const { latitude, latitudeDelta, longitude, longitudeDelta } = region;
   if (latitude && latitudeDelta && longitude && longitudeDelta) {
     //PADDING SHOULD BE FLAG RADIUS
-    const padding = 0;
+    const padding = 0.00003;
 
     region.min_lat = +latitude - +latitudeDelta - padding;
     region.max_lat = +latitude + +latitudeDelta + padding;
@@ -26,7 +26,7 @@ exports.routeAreaFinder = route => {
     points = polyline.decode(route.poly);
   }
   //PADDING SHOULD BE FLAG RADIUS
-  const padding = 0.0001;
+  const padding = 0.00003;
   if (points && points.length > 1) {
     const lats = [];
     const longs = [];
@@ -48,7 +48,7 @@ exports.routeAreaFinder = route => {
 exports.routeFlagger = (flag, route) => {
   // THIS VARIABLE DETERMINES THE FLAG RADIUS
 
-  const flagRadius = 1;
+  const flagRadius = 0.00003;
   const points = polyline.decode(route.poly);
   const { latitude, longitude } = flag;
   if (
