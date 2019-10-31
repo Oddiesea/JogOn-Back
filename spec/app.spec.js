@@ -66,7 +66,7 @@ describe('/api', () => {
           .get('/api/flags')
           .expect(200)
           .then(({ body: { flags } }) => {
-            expect(flags.length).to.equal(4);
+            expect(flags.length).to.equal(5);
             expect(flags[0]).to.contain.keys(
               'flag_id',
               'longitude',
@@ -77,8 +77,18 @@ describe('/api', () => {
             );
           });
       });
+      describe('QUERIES', () => {
+        it('accepts a query of ?min_lat=**&max_lat=**&min_long=**&max_long=**', () => {
+          return request(app)
+            .get('/api/flags?min_lat=53&max_lat=54&min_long=-1.6&max_long=-1.5')
+            .expect(200)
+            .then(({ body: { flags } }) => {
+              expect(flags.length).to.equal(4);
+            });
+        });
+      });
     });
-    describe.only('POST', () => {
+    describe('POST', () => {
       it('status: 201, responds with an object of the new flag', () => {
         return request(app)
           .post('/api/flags')

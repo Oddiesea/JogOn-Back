@@ -4,7 +4,7 @@ const { addJunctions } = require('../models/junctionsModels');
 const { routeFlagger } = require('../utils/utils');
 
 exports.getAllFlags = (req, res, next) => {
-  fetchAllFlags()
+  fetchAllFlags(req.query)
     .then(flags => {
       res.status(200).send({ flags });
     })
