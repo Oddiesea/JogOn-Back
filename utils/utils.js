@@ -6,10 +6,10 @@ exports.minMaxLatLong = region => {
     //PADDING SHOULD BE FLAG RADIUS
     const padding = 0.00003;
 
-    region.min_lat = +latitude - +latitudeDelta - padding;
-    region.max_lat = +latitude + +latitudeDelta + padding;
-    region.min_long = +longitude - +longitudeDelta - padding;
-    region.max_long = +longitude + +longitudeDelta + padding;
+    region.min_lat = +(+latitude - +latitudeDelta - padding).toFixed(5);
+    region.max_lat = +(+latitude + +latitudeDelta + padding).toFixed(5);
+    region.min_long = +(+longitude - +longitudeDelta - padding).toFixed(5);
+    region.max_long = +(+longitude + +longitudeDelta + padding).toFixed(5);
     delete region.latitude;
     delete region.longitude;
     delete region.latitudeDelta;
@@ -17,8 +17,6 @@ exports.minMaxLatLong = region => {
   }
   return region;
 };
-
-//////////////////////////////////////////////////////////////////////////
 
 exports.routeAreaFinder = route => {
   let points;
@@ -42,8 +40,6 @@ exports.routeAreaFinder = route => {
   }
   return route;
 };
-
-///////////////////////////////////////////////////////////////////////////
 
 exports.routeFlagger = (flag, route) => {
   // THIS VARIABLE DETERMINES THE FLAG RADIUS
