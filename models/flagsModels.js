@@ -1,6 +1,13 @@
 const connection = require('../connection');
 
-exports.fetchAllFlags = ({ min_lat, max_lat, min_long, max_long }) => {
+exports.fetchAllFlags = ({
+  min_lat,
+  max_lat,
+  min_long,
+  max_long,
+  user_id,
+  flag_type_id
+}) => {
   return connection('flags')
     .select('*')
     .modify(query => {
@@ -10,6 +17,12 @@ exports.fetchAllFlags = ({ min_lat, max_lat, min_long, max_long }) => {
           .andWhere('latitude', '>=', min_lat)
           .andWhere('longitude', '<=', max_long)
           .andWhere('longitude', '>=', min_long);
+      }
+      if (user_id) {
+        query.where({ user_id });
+      }
+      if (flag_type_id) {
+        query.where({ flag_type_id });
       }
     })
     .then(flags => {
