@@ -1,6 +1,10 @@
 const { fetchAllRoutes, addRoute } = require('../models/routesModels');
 const { fetchAllFlags } = require('../models/flagsModels');
-const { minMaxLatLong, routeFlagger } = require('../utils/utils');
+const {
+  minMaxLatLong,
+  routeFlagger,
+  routeAreaFinder
+} = require('../utils/utils');
 const { addJunctions } = require('../models/junctionsModels');
 
 exports.getAllRoutes = (req, res, next) => {
@@ -12,7 +16,7 @@ exports.getAllRoutes = (req, res, next) => {
 };
 
 exports.postRoute = (req, res, next) => {
-  const formattedRoute = minMaxLatLong(req.body);
+  const formattedRoute = routeAreaFinder(req.body);
   addRoute(formattedRoute)
     .then(route => {
       res.status(201).send({ route });

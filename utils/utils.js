@@ -1,29 +1,32 @@
 const polyline = require('@mapbox/polyline');
 
-exports.minMaxLatLong = route => {
-  const { latitude, latitudeDelta, longitude, longitudeDelta } = route;
+exports.minMaxLatLong = region => {
+  const { latitude, latitudeDelta, longitude, longitudeDelta } = region;
   if (latitude && latitudeDelta && longitude && longitudeDelta) {
     //PADDING SHOULD BE FLAG RADIUS
     const padding = 0;
 
-    route.min_lat = latitude - latitudeDelta - padding;
-    route.max_lat = latitude + latitudeDelta + padding;
-    route.min_long = longitude - longitudeDelta - padding;
-    route.max_long = longitude + longitudeDelta + padding;
-    delete route.latitude;
-    delete route.longitude;
-    delete route.latitudeDelta;
-    delete route.longitudeDelta;
+    region.min_lat = +latitude - +latitudeDelta - padding;
+    region.max_lat = +latitude + +latitudeDelta + padding;
+    region.min_long = +longitude - +longitudeDelta - padding;
+    region.max_long = +longitude + +longitudeDelta + padding;
+    delete region.latitude;
+    delete region.longitude;
+    delete region.latitudeDelta;
+    delete region.longitudeDelta;
   }
-  return route;
+  return region;
 };
 
 //////////////////////////////////////////////////////////////////////////
 
 exports.routeAreaFinder = route => {
-  const points = polyline.decode(route.poly);
+  let points;
+  if (route.poly) {
+    points = polyline.decode(route.poly);
+  }
   //PADDING SHOULD BE FLAG RADIUS
-  const padding = 0;
+  const padding = 0.0001;
   if (points && points.length > 1) {
     const lats = [];
     const longs = [];

@@ -66,7 +66,7 @@ describe('/api', () => {
           .get('/api/flags')
           .expect(200)
           .then(({ body: { flags } }) => {
-            expect(flags.length).to.equal(5);
+            expect(flags.length).to.equal(7);
             expect(flags[0]).to.contain.keys(
               'flag_id',
               'longitude',
@@ -83,7 +83,17 @@ describe('/api', () => {
             .get('/api/flags?min_lat=53&max_lat=54&min_long=-1.6&max_long=-1.5')
             .expect(200)
             .then(({ body: { flags } }) => {
-              expect(flags.length).to.equal(4);
+              expect(flags.length).to.equal(6);
+            });
+        });
+        it('accepts a query of ?latitude=**&latitudeDelta=**&longitude=**&longitudeDelta=**', () => {
+          return request(app)
+            .get(
+              '/api/flags?latitude=53.0&latitudeDelta=1.0&longitude=-2.0&longitudeDelta=1.0'
+            )
+            .expect(200)
+            .then(({ body: { flags } }) => {
+              expect(flags.length).to.equal(6);
             });
         });
       });
@@ -267,11 +277,7 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
-            user_id: 1,
-            latitude: 1.1,
-            longitude: 2.2,
-            latitudeDelta: 1.1,
-            longitudeDelta: 2.2
+            user_id: 1
           })
           .expect(201)
           .then(({ body: { route } }) => {
@@ -293,6 +299,7 @@ describe('/api', () => {
         return request(app)
           .post('/api/routes')
           .send({
+            poly: 'vuydghqwvfdyuihgqwvdy',
             length_in_km: 9.2,
             user_id: 1
           })
@@ -307,11 +314,7 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 'HELLO!!',
-            user_id: 1,
-            latitude: 1.1,
-            longitude: 2.2,
-            latitudeDelta: 1.1,
-            longitudeDelta: 2.2
+            user_id: 1
           })
           .expect(400)
           .then(({ body: { msg } }) => {
@@ -324,11 +327,7 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
-            user_id: 999,
-            latitude: 1.1,
-            longitude: 2.2,
-            latitudeDelta: 1.1,
-            longitudeDelta: 2.2
+            user_id: 999
           })
           .expect(422)
           .then(({ body: { msg } }) => {

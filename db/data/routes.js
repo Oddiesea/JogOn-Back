@@ -1,5 +1,5 @@
 const polyline = require('@mapbox/polyline');
-const testPoly = polyline.encode([[15.0, 1.5], [22.2, 2.2], [335.123456, 3.3]]);
+const testPoly = polyline.encode([[15.0, 1.5], [22.2, 2.2], [33.3, 3.3]]);
 
 module.exports = [
   {

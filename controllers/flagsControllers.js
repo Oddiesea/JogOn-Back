@@ -1,10 +1,11 @@
 const { fetchAllFlags, addFlag } = require('../models/flagsModels');
 const { fetchAllRoutes } = require('../models/routesModels');
 const { addJunctions } = require('../models/junctionsModels');
-const { routeFlagger } = require('../utils/utils');
+const { routeFlagger, minMaxLatLong } = require('../utils/utils');
 
 exports.getAllFlags = (req, res, next) => {
-  fetchAllFlags(req.query)
+  const region = minMaxLatLong(req.query);
+  fetchAllFlags(region)
     .then(flags => {
       res.status(200).send({ flags });
     })
