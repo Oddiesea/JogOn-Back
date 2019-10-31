@@ -11,7 +11,6 @@ exports.getAllRoutes = (req, res, next) => {
 
 exports.postRoute = (req, res, next) => {
   const formattedRoute = minMaxLatLong(req.body);
-  console.log(formattedRoute);
   addRoute(formattedRoute)
     .then(route => {
       res.status(201).send({ route });

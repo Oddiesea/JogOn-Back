@@ -1,3 +1,6 @@
+const polyline = require('@mapbox/polyline');
+const testPoly = polyline.encode([[15.0, 1.5], [22.2, 2.2], [335.123456, 3.3]]);
+
 module.exports = [
   {
     poly: 'fdyugehwfdbweuy7fuijwehi67892389yuhjeidbgycghwby',
@@ -27,7 +30,7 @@ module.exports = [
     max_long: 2.2
   },
   {
-    poly: 'fdguyihwegrfu6t5555555555555555555555555555555',
+    poly: testPoly,
     length_in_km: 6.4,
     user_id: 4,
     min_lat: 10.1,

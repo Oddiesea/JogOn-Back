@@ -1,4 +1,7 @@
 const { fetchAllFlags, addFlag } = require('../models/flagsModels');
+const { fetchAllRoutes } = require('../models/routesModels');
+const { addJunctions } = require('../models/junctionsModels');
+const { routeFlagger } = require('../utils/utils');
 
 exports.getAllFlags = (req, res, next) => {
   fetchAllFlags()
@@ -21,6 +24,7 @@ exports.postFlag = (req, res, next) => {
             return { flag_id: flag.flag_id, route_id: route.route_id };
           }
         });
+        addJunctions(junctions);
       });
     })
     .catch(next);

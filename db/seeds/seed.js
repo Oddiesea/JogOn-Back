@@ -1,5 +1,5 @@
 const {
-  testData: { users, flags, flag_types, routes }
+  testData: { users, flags, flag_types, routes, junctions }
 } = require('../data/index');
 
 exports.seed = function(connection) {
@@ -17,5 +17,8 @@ exports.seed = function(connection) {
       const flagsInsertions = connection('flags').insert(flags);
       const routesInsertions = connection('routes').insert(routes);
       return Promise.all([flagsInsertions, routesInsertions]);
+    })
+    .then(() => {
+      return connection('junctions').insert(junctions);
     });
 };

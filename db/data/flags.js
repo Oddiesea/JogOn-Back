@@ -22,5 +22,11 @@ module.exports = [
     longitude: -1.5791,
     flag_type_id: 4,
     user_id: 4
+  },
+  {
+    latitude: 22.2,
+    longitude: 2.2,
+    flag_type_id: 4,
+    user_id: 4
   }
 ];

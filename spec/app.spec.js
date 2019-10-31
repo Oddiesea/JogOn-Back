@@ -78,7 +78,7 @@ describe('/api', () => {
           });
       });
     });
-    describe('POST', () => {
+    describe.only('POST', () => {
       it('status: 201, responds with an object of the new flag', () => {
         return request(app)
           .post('/api/flags')
@@ -250,7 +250,7 @@ describe('/api', () => {
         });
       });
     });
-    describe.only('POST', () => {
+    describe('POST', () => {
       it('status: 201, responds with an object of the new route', () => {
         return request(app)
           .post('/api/routes')
@@ -338,6 +338,35 @@ describe('/api', () => {
             });
         });
         return Promise.all(promises);
+      });
+    });
+  });
+  describe('/junctions', () => {
+    describe('GET', () => {
+      it('status: 200, responds with an object containing an array of all junctions', () => {
+        return request(app)
+          .get('/api/junctions')
+          .expect(200)
+          .then(({ body: { junctions } }) => {
+            expect(junctions.length).to.equal(1);
+          });
+      });
+    });
+    describe('POST', () => {
+      it('status: 201, responds with an object containing an array of the new junctions', () => {
+        return request(app)
+          .post('/api/junctions')
+          .send({
+            junctions: [
+              { flag_id: 1, route_id: 1 },
+              { flag_id: 2, route_id: 2 }
+            ]
+          })
+          .expect(201)
+          .then(({ body: { junctions } }) => {
+            expect(junctions.length).to.equal(2);
+            expect(junctions[1]).to.contain.keys('junction_id');
+          });
       });
     });
   });
