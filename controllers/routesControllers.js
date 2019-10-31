@@ -1,10 +1,6 @@
 const { fetchAllRoutes, addRoute } = require('../models/routesModels');
 const { fetchAllFlags } = require('../models/flagsModels');
-const {
-  minMaxLatLong,
-  routeFlagger,
-  routeAreaFinder
-} = require('../utils/utils');
+const { routeFlagger, routeAreaFinder } = require('../utils/utils');
 const { addJunctions } = require('../models/junctionsModels');
 
 exports.getAllRoutes = (req, res, next) => {
