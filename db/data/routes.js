@@ -18,7 +18,8 @@ module.exports = [
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
-    max_long: 2.2
+    max_long: 2.2,
+    created_at: '1990-01-01'
   },
   {
     poly: 'duhewjfhiuyeuowhf7t43iyr7474386582390rhckjchqiuef',

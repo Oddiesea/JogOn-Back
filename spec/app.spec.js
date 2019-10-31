@@ -4,6 +4,7 @@ const { expect } = chai;
 const app = require('../app');
 const request = require('supertest');
 const connection = require('../connection');
+chai.use(require('chai-sorted'));
 
 after(() => connection.destroy());
 beforeEach(function() {
@@ -94,6 +95,22 @@ describe('/api', () => {
             .expect(200)
             .then(({ body: { flags } }) => {
               expect(flags.length).to.equal(6);
+            });
+        });
+        it('accepts a query of ?user_id=**', () => {
+          return request(app)
+            .get('/api/flags?user_id=3')
+            .expect(200)
+            .then(({ body: { flags } }) => {
+              expect(flags[0].user_id).to.equal(3);
+            });
+        });
+        it('accepts a query of ?flag_type_id=**', () => {
+          return request(app)
+            .get('/api/flags?flag_type_id=3')
+            .expect(200)
+            .then(({ body: { flags } }) => {
+              expect(flags[0].flag_type_id).to.equal(3);
             });
         });
       });
@@ -268,6 +285,30 @@ describe('/api', () => {
               expect(routes.length).to.equal(1);
             });
         });
+        it('orders the results descendingly by created_at by default', () => {
+          return request(app)
+            .get('/api/routes')
+            .expect(200)
+            .then(({ body: { routes } }) => {
+              expect(routes).to.be.descendingBy('created_at');
+            });
+        });
+        it('orders the results by a query of ?sort_by=length_in_km', () => {
+          return request(app)
+            .get('/api/routes?sort_by=length_in_km')
+            .expect(200)
+            .then(({ body: { routes } }) => {
+              expect(routes).to.be.descendingBy('length_in_km');
+            });
+        });
+        it('limits the results with a query of ?user_id=**', () => {
+          return request(app)
+            .get('/api/routes?user_id=3')
+            .expect(200)
+            .then(({ body: { routes } }) => {
+              expect(routes[0].user_id).to.equal(3);
+            });
+        });
       });
     });
     describe('POST', () => {
@@ -376,6 +417,20 @@ describe('/api', () => {
             expect(junctions.length).to.equal(2);
             expect(junctions[1]).to.contain.keys('junction_id');
           });
+      });
+    });
+    describe('INVALID METHODS', () => {
+      it('status: 405 for methods DELETE, PATCH, PUT', () => {
+        const invalidMethods = ['delete', 'patch', 'put'];
+        const promises = invalidMethods.map(method => {
+          return request(app)
+            [method]('/api/junctions')
+            .expect(405)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Invalid method.');
+            });
+        });
+        return Promise.all(promises);
       });
     });
   });
