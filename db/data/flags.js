@@ -22,5 +22,23 @@ module.exports = [
     longitude: -1.5791,
     flag_type_id: 4,
     user_id: 4
+  },
+  {
+    latitude: 22.2,
+    longitude: 2.2,
+    flag_type_id: 4,
+    user_id: 4
+  },
+  {
+    latitude: 53.795006484598,
+    longitude: -1.54642358422279,
+    user_id: 1,
+    flag_type_id: 1
+  },
+  {
+    latitude: 53.7949486570067,
+    longitude: -1.54665358364582,
+    user_id: 1,
+    flag_type_id: 1
   }
 ];

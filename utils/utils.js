@@ -1,25 +1,30 @@
-exports.minMaxLatLong = route => {
-  const { latitude, latitudeDelta, longitude, longitudeDelta } = route;
+const polyline = require('@mapbox/polyline');
+
+exports.minMaxLatLong = region => {
+  const { latitude, latitudeDelta, longitude, longitudeDelta } = region;
   if (latitude && latitudeDelta && longitude && longitudeDelta) {
     //PADDING SHOULD BE FLAG RADIUS
-    const padding = 0;
+    const padding = 0.00003;
 
-    route.min_lat = latitude - latitudeDelta - padding;
-    route.max_lat = latitude + latitudeDelta + padding;
-    route.min_long = longitude - longitudeDelta - padding;
-    route.max_long = longitude + longitudeDelta + padding;
-    delete route.latitude;
-    delete route.longitude;
-    delete route.latitudeDelta;
-    delete route.longitudeDelta;
-    return route;
+    region.min_lat = +(+latitude - +latitudeDelta - padding).toFixed(5);
+    region.max_lat = +(+latitude + +latitudeDelta + padding).toFixed(5);
+    region.min_long = +(+longitude - +longitudeDelta - padding).toFixed(5);
+    region.max_long = +(+longitude + +longitudeDelta + padding).toFixed(5);
+    delete region.latitude;
+    delete region.longitude;
+    delete region.latitudeDelta;
+    delete region.longitudeDelta;
   }
+  return region;
 };
 
 exports.routeAreaFinder = route => {
-  const { points } = route;
+  let points;
+  if (route.poly) {
+    points = polyline.decode(route.poly);
+  }
   //PADDING SHOULD BE FLAG RADIUS
-  const padding = 0;
+  const padding = 0.00003;
   if (points && points.length > 1) {
     const lats = [];
     const longs = [];
@@ -27,20 +32,20 @@ exports.routeAreaFinder = route => {
       lats.push(coord[0]);
       longs.push(coord[1]);
     });
-    return {
-      min_lat: Math.min(...lats) - padding,
-      max_lat: Math.max(...lats) + padding,
-      min_long: Math.min(...longs) - padding,
-      max_long: Math.max(...longs) + padding
-    };
+
+    route.min_lat = Math.min(...lats) - padding;
+    route.max_lat = Math.max(...lats) + padding;
+    route.min_long = Math.min(...longs) - padding;
+    route.max_long = Math.max(...longs) + padding;
   }
+  return route;
 };
 
 exports.routeFlagger = (flag, route) => {
   // THIS VARIABLE DETERMINES THE FLAG RADIUS
 
-  const flagRadius = 1;
-  const { points } = route;
+  const flagRadius = 0.00003;
+  const points = polyline.decode(route.poly);
   const { latitude, longitude } = flag;
   if (
     points.find(point => {

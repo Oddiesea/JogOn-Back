@@ -66,7 +66,7 @@ describe('/api', () => {
           .get('/api/flags')
           .expect(200)
           .then(({ body: { flags } }) => {
-            expect(flags.length).to.equal(4);
+            expect(flags.length).to.equal(7);
             expect(flags[0]).to.contain.keys(
               'flag_id',
               'longitude',
@@ -76,6 +76,26 @@ describe('/api', () => {
               'created_at'
             );
           });
+      });
+      describe('QUERIES', () => {
+        it('accepts a query of ?min_lat=**&max_lat=**&min_long=**&max_long=**', () => {
+          return request(app)
+            .get('/api/flags?min_lat=53&max_lat=54&min_long=-1.6&max_long=-1.5')
+            .expect(200)
+            .then(({ body: { flags } }) => {
+              expect(flags.length).to.equal(6);
+            });
+        });
+        it('accepts a query of ?latitude=**&latitudeDelta=**&longitude=**&longitudeDelta=**', () => {
+          return request(app)
+            .get(
+              '/api/flags?latitude=53.0&latitudeDelta=1.0&longitude=-2.0&longitudeDelta=1.0'
+            )
+            .expect(200)
+            .then(({ body: { flags } }) => {
+              expect(flags.length).to.equal(6);
+            });
+        });
       });
     });
     describe('POST', () => {
@@ -250,18 +270,14 @@ describe('/api', () => {
         });
       });
     });
-    describe.only('POST', () => {
+    describe('POST', () => {
       it('status: 201, responds with an object of the new route', () => {
         return request(app)
           .post('/api/routes')
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
-            user_id: 1,
-            latitude: 1.1,
-            longitude: 2.2,
-            latitudeDelta: 1.1,
-            longitudeDelta: 2.2
+            user_id: 1
           })
           .expect(201)
           .then(({ body: { route } }) => {
@@ -283,6 +299,7 @@ describe('/api', () => {
         return request(app)
           .post('/api/routes')
           .send({
+            poly: 'vuydghqwvfdyuihgqwvdy',
             length_in_km: 9.2,
             user_id: 1
           })
@@ -297,11 +314,7 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 'HELLO!!',
-            user_id: 1,
-            latitude: 1.1,
-            longitude: 2.2,
-            latitudeDelta: 1.1,
-            longitudeDelta: 2.2
+            user_id: 1
           })
           .expect(400)
           .then(({ body: { msg } }) => {
@@ -314,11 +327,7 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
-            user_id: 999,
-            latitude: 1.1,
-            longitude: 2.2,
-            latitudeDelta: 1.1,
-            longitudeDelta: 2.2
+            user_id: 999
           })
           .expect(422)
           .then(({ body: { msg } }) => {
@@ -338,6 +347,35 @@ describe('/api', () => {
             });
         });
         return Promise.all(promises);
+      });
+    });
+  });
+  describe('/junctions', () => {
+    describe('GET', () => {
+      it('status: 200, responds with an object containing an array of all junctions', () => {
+        return request(app)
+          .get('/api/junctions')
+          .expect(200)
+          .then(({ body: { junctions } }) => {
+            expect(junctions.length).to.equal(1);
+          });
+      });
+    });
+    describe('POST', () => {
+      it('status: 201, responds with an object containing an array of the new junctions', () => {
+        return request(app)
+          .post('/api/junctions')
+          .send({
+            junctions: [
+              { flag_id: 1, route_id: 1 },
+              { flag_id: 2, route_id: 2 }
+            ]
+          })
+          .expect(201)
+          .then(({ body: { junctions } }) => {
+            expect(junctions.length).to.equal(2);
+            expect(junctions[1]).to.contain.keys('junction_id');
+          });
       });
     });
   });
