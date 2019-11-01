@@ -1,7 +1,8 @@
 const {
   fetchAllRoutes,
   addRoute,
-  fetchRoute
+  fetchRoute,
+  removeRoute
 } = require('../models/routesModels');
 const { fetchAllFlags } = require('../models/flagsModels');
 const { routeFlagger, routeAreaFinder } = require('../utils/utils');
@@ -37,7 +38,16 @@ exports.postRoute = (req, res, next) => {
     .catch(next);
 };
 exports.getRoute = (req, res, next) => {
-  fetchRoute(req.params.route_id).then(route => {
-    res.status(200).send({ route });
-  });
+  fetchRoute(req.params.route_id)
+    .then(route => {
+      res.status(200).send({ route });
+    })
+    .catch(next);
+};
+exports.deleteRoute = (req, res, next) => {
+  removeRoute(req.params.route_id)
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch(next);
 };

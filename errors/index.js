@@ -4,6 +4,12 @@ exports.handleCustomErrors = (err, req, res, next) => {
 };
 
 // PSQL ERRORS
+exports.handleTooLarge = (err, req, res, next) => {
+  if (err.code === '22003') {
+    res.status(400).send({ msg: 'Item ID too large.' });
+  } else next(err);
+};
+
 exports.handlePsql400s = (err, req, res, next) => {
   const codes = ['23502', '22P02', '42703'];
   if (codes.includes(err.code)) {
