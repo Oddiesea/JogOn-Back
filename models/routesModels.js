@@ -3,7 +3,7 @@ const connection = require('../connection');
 exports.fetchAllRoutes = ({
   longitude,
   latitude,
-  sort_by = 'routes.created_at',
+  sort_by,
   order = 'desc',
   user_id
 }) => {
@@ -18,13 +18,14 @@ exports.fetchAllRoutes = ({
       'max_long',
       'routes.user_id',
       'routes.created_at',
+      'start_lat',
+      'start_long',
       connection.raw('ARRAY_AGG(DISTINCT(flags.flag_type_id)) as flag_type_ids')
     )
     .from('routes')
     .leftJoin('junctions', 'junctions.route_id', 'routes.route_id')
     .leftJoin('flags', 'junctions.flag_id', 'flags.flag_id')
     .groupBy('routes.route_id')
-    .orderBy(sort_by, order)
     .modify(query => {
       if (longitude && latitude) {
         query
@@ -36,6 +37,16 @@ exports.fetchAllRoutes = ({
       if (user_id) {
         query.where('routes.user_id', user_id);
       }
+      // if (start_lat && start_long) {
+      //   query.orderBy(
+      //     connection.raw(
+      //       `ST_MakeLine(ST_MakePoint(${start_lat},${start_long}),ST_MakeLine(start_lat,start_long)`
+      //     ),
+      //     order
+      //   );
+      // } else {
+      query.orderBy(sort_by || 'routes.created_at', order);
+      // }
     })
     .then(routes => {
       return routes;
@@ -61,6 +72,8 @@ exports.fetchRoute = route_id => {
       'max_long',
       'routes.user_id',
       'routes.created_at',
+      'start_lat',
+      'start_long',
       connection.raw('ARRAY_AGG(DISTINCT(flags.flag_id)) as flag_ids')
     )
     .where('routes.route_id', '=', route_id)

@@ -464,7 +464,7 @@ describe('/api', () => {
         });
         it('accepts a query of ?start_lat=**&start_long=**', () => {
           return request(app)
-            .get('api/routes?start_lat=15.0&start_long=1.5')
+            .get('/api/routes?start_lat=15.0&start_long=1.5')
             .expect(200)
             .then(({ body: { routes } }) => {
               expect(routes[0].start_lat).to.equal(15.0);
