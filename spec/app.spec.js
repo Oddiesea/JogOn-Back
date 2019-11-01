@@ -260,6 +260,23 @@ describe('/api', () => {
     });
   });
   describe('/routes', () => {
+    describe('/:route_id', () => {
+      it.only('status: 200, responds with an object containing a route', () => {
+        return request(app)
+          .get('/api/routes/1')
+          .expect(200)
+          .then(({ body: { route } }) => {
+            expect(route).to.contain.keys(
+              'route_id',
+              'poly',
+              'length_in_km',
+              'user_id',
+              'created_at',
+              'flag_ids'
+            );
+          });
+      });
+    });
     describe('GET', () => {
       it('status: 200, responds with an object containing an array of all routes', () => {
         return request(app)
@@ -274,6 +291,14 @@ describe('/api', () => {
               'user_id',
               'created_at'
             );
+          });
+      });
+      it('status: 200, each route object also has a key of flag_type_ids', () => {
+        return request(app)
+          .get('/api/routes')
+          .expect(200)
+          .then(({ body: { routes } }) => {
+            expect(routes[0]).to.contain.keys('flag_type_ids');
           });
       });
       describe('QUERIES', () => {

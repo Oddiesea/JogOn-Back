@@ -1,4 +1,8 @@
-const { fetchAllRoutes, addRoute } = require('../models/routesModels');
+const {
+  fetchAllRoutes,
+  addRoute,
+  fetchRoute
+} = require('../models/routesModels');
 const { fetchAllFlags } = require('../models/flagsModels');
 const { routeFlagger, routeAreaFinder } = require('../utils/utils');
 const { addJunctions } = require('../models/junctionsModels');
@@ -31,4 +35,9 @@ exports.postRoute = (req, res, next) => {
       });
     })
     .catch(next);
+};
+exports.getRoute = (req, res, next) => {
+  fetchRoute(req.params.route_id).then(route => {
+    res.status(200).send({ route });
+  });
 };
