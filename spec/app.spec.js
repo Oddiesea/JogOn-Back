@@ -276,6 +276,14 @@ describe('/api', () => {
             );
           });
       });
+      it.only('status: 200, each route object also has a key of flag_type_ids', () => {
+        return request(app)
+          .get('/api/routes')
+          .expect(200)
+          .then(({ body: { routes } }) => {
+            expect(routes[0]).to.contain.keys('flag_type_ids');
+          });
+      });
       describe('QUERIES', () => {
         it('accepts a query of ?latitude=**&longitude=**', () => {
           return request(app)
