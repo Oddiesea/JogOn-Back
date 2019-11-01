@@ -109,6 +109,22 @@ describe('/api', () => {
             .delete('/api/flags/1')
             .expect(204);
         });
+        it('status: 400, when passed an invalid flag_id', () => {
+          return request(app)
+            .delete('/api/flags/one')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
+            });
+        });
+        it('status: 400, when passed a flag_id that is much too large', () => {
+          return request(app)
+            .delete('/api/flags/11123456765465435654565456')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Item ID too large.');
+            });
+        });
       });
       describe('INVALID METHODS', () => {
         it('status: 405 for methods POST, PATCH, PUT', () => {
@@ -444,6 +460,15 @@ describe('/api', () => {
             .expect(200)
             .then(({ body: { routes } }) => {
               expect(routes[0].user_id).to.equal(3);
+            });
+        });
+        it('accepts a query of ?start_lat=**&start_long=**', () => {
+          return request(app)
+            .get('api/routes?start_lat=15.0&start_long=1.5')
+            .expect(200)
+            .then(({ body: { routes } }) => {
+              expect(routes[0].start_lat).to.equal(15.0);
+              expect(routes[0].start_long).to.equal(1.5);
             });
         });
       });

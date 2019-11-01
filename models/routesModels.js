@@ -18,7 +18,7 @@ exports.fetchAllRoutes = ({
       'max_long',
       'routes.user_id',
       'routes.created_at',
-      connection.raw('ARRAY_AGG(flags.flag_type_id) as flag_type_ids')
+      connection.raw('ARRAY_AGG(DISTINCT(flags.flag_type_id)) as flag_type_ids')
     )
     .from('routes')
     .leftJoin('junctions', 'junctions.route_id', 'routes.route_id')
@@ -61,7 +61,7 @@ exports.fetchRoute = route_id => {
       'max_long',
       'routes.user_id',
       'routes.created_at',
-      connection.raw('ARRAY_AGG(flags.flag_id) as flag_ids')
+      connection.raw('ARRAY_AGG(DISTINCT(flags.flag_id)) as flag_ids')
     )
     .where('routes.route_id', '=', route_id)
     .leftJoin('junctions', 'junctions.route_id', 'routes.route_id')

@@ -40,7 +40,9 @@ describe('routeAreaFinder', () => {
       min_lat: 0.99997,
       max_lat: 3.00003,
       min_long: 0.99997,
-      max_long: 2.00003
+      max_long: 2.00003,
+      start_lat: 1,
+      start_long: 1
     });
   });
 });
