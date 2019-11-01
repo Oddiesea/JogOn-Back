@@ -43,6 +43,13 @@ exports.fetchFlag = flag_id => {
     .select('*')
     .where({ flag_id })
     .then(([flag]) => {
-      return flag;
+      if (flag) return flag;
+      else throw { status: 404, msg: 'Item not found.' };
     });
+};
+
+exports.removeFlag = flag_id => {
+  return connection('flags')
+    .delete()
+    .where({ flag_id });
 };

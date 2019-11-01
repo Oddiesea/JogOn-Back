@@ -1,12 +1,9 @@
-/////////////////////////////////
-process.env.NODE_ENV = 'test';
-////////////////////////////////////
-
 const express = require('express');
 const apiRouter = require('./routes/apiRouter');
 const {
   handleCustomErrors,
   handlePsql400s,
+  handleTooLarge,
   handlePsql422s,
   handle404s,
   handle500s
@@ -21,6 +18,7 @@ app.use('/*', handle404s);
 
 //ERROR HANDLERS
 app.use(handleCustomErrors);
+app.use(handleTooLarge);
 app.use(handlePsql400s);
 app.use(handlePsql422s);
 app.use(handle500s);

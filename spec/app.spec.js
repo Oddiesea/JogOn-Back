@@ -63,7 +63,7 @@ describe('/api', () => {
   describe('/flags', () => {
     describe('/:flag_id', () => {
       describe('GET', () => {
-        it.only('status: 200, responds with an object containing a flag object', () => {
+        it('status: 200, responds with an object containing a flag object', () => {
           return request(app)
             .get('/api/flags/1')
             .expect(200)
@@ -78,9 +78,51 @@ describe('/api', () => {
               );
             });
         });
+        it('status: 404, when passed a valid but non-existent flag_id', () => {
+          return request(app)
+            .get('/api/flags/800')
+            .expect(404)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Item not found.');
+            });
+        });
+        it('status: 400, when passed a flag_id that is too large', () => {
+          return request(app)
+            .get('/api/flags/80273857238573295774')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Item ID too large.');
+            });
+        });
+        it('status: 400, when passed an invalid flag_id', () => {
+          return request(app)
+            .get('/api/flags/fortythree')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
+            });
+        });
       });
       describe('DELETE', () => {
-        it('', () => {});
+        it('status: 204, deletes the given flag', () => {
+          return request(app)
+            .delete('/api/flags/1')
+            .expect(204);
+        });
+      });
+      describe('INVALID METHODS', () => {
+        it('status: 405 for methods POST, PATCH, PUT', () => {
+          const invalidMethods = ['post', 'patch', 'put'];
+          const promises = invalidMethods.map(method => {
+            return request(app)
+              [method]('/api/flags/1')
+              .expect(405)
+              .then(({ body: { msg } }) => {
+                expect(msg).to.equal('Invalid method.');
+              });
+          });
+          return Promise.all(promises);
+        });
       });
     });
     describe('GET', () => {
@@ -89,7 +131,7 @@ describe('/api', () => {
           .get('/api/flags')
           .expect(200)
           .then(({ body: { flags } }) => {
-            expect(flags.length).to.equal(7);
+            expect(flags.length).to.equal(8);
             expect(flags[0]).to.contain.keys(
               'flag_id',
               'longitude',
@@ -299,6 +341,30 @@ describe('/api', () => {
               );
             });
         });
+        it('status: 404, when passed a valid but non-existent route_id', () => {
+          return request(app)
+            .get('/api/routes/800')
+            .expect(404)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Item not found.');
+            });
+        });
+        it('status: 400, when passed a route_id that is too large', () => {
+          return request(app)
+            .get('/api/routes/80087347128372184894')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Item ID too large.');
+            });
+        });
+        it('status: 400, when passed an invalid route_id', () => {
+          return request(app)
+            .get('/api/routes/eighthundred')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
+            });
+        });
       });
       describe('DELETE', () => {
         it('status: 204, deletes the route', () => {
@@ -469,7 +535,7 @@ describe('/api', () => {
           .get('/api/junctions')
           .expect(200)
           .then(({ body: { junctions } }) => {
-            expect(junctions.length).to.equal(1);
+            expect(junctions.length).to.equal(2);
           });
       });
     });

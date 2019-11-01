@@ -38,12 +38,16 @@ exports.postRoute = (req, res, next) => {
     .catch(next);
 };
 exports.getRoute = (req, res, next) => {
-  fetchRoute(req.params.route_id).then(route => {
-    res.status(200).send({ route });
-  });
+  fetchRoute(req.params.route_id)
+    .then(route => {
+      res.status(200).send({ route });
+    })
+    .catch(next);
 };
 exports.deleteRoute = (req, res, next) => {
-  removeRoute(req.params.route_id).then(() => {
-    res.status(204).send();
-  });
+  removeRoute(req.params.route_id)
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch(next);
 };

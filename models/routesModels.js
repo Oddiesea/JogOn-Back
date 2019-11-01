@@ -34,7 +34,7 @@ exports.fetchAllRoutes = ({
           .andWhere('min_long', '<=', longitude);
       }
       if (user_id) {
-        query.where({ user_id });
+        query.where('routes.user_id', user_id);
       }
     })
     .then(routes => {
@@ -68,7 +68,10 @@ exports.fetchRoute = route_id => {
     .leftJoin('flags', 'junctions.flag_id', 'flags.flag_id')
     .groupBy('routes.route_id')
     .then(([route]) => {
-      return route;
+      if (route) return route;
+      else {
+        throw { status: 404, msg: 'Item not found.' };
+      }
     });
 };
 exports.removeRoute = route_id => {

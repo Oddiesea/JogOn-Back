@@ -1,4 +1,9 @@
-const { fetchAllFlags, addFlag, fetchFlag } = require('../models/flagsModels');
+const {
+  fetchAllFlags,
+  addFlag,
+  fetchFlag,
+  removeFlag
+} = require('../models/flagsModels');
 const { fetchAllRoutes } = require('../models/routesModels');
 const { addJunctions } = require('../models/junctionsModels');
 const { routeFlagger, minMaxLatLong } = require('../utils/utils');
@@ -35,6 +40,14 @@ exports.getFlag = (req, res, next) => {
   fetchFlag(req.params.flag_id)
     .then(flag => {
       res.status(200).send({ flag });
+    })
+    .catch(next);
+};
+
+exports.deleteFlag = (req, res, next) => {
+  removeFlag(req.params.flag_id)
+    .then(() => {
+      res.status(204).send();
     })
     .catch(next);
 };
