@@ -37,3 +37,12 @@ exports.addFlag = flagObj => {
       return flag;
     });
 };
+
+exports.fetchFlag = flag_id => {
+  return connection('flags')
+    .select('*')
+    .where({ flag_id })
+    .then(([flag]) => {
+      return flag;
+    });
+};

@@ -63,7 +63,21 @@ describe('/api', () => {
   describe('/flags', () => {
     describe('/:flag_id', () => {
       describe('GET', () => {
-        it('', () => {});
+        it.only('status: 200, responds with an object containing a flag object', () => {
+          return request(app)
+            .get('/api/flags/1')
+            .expect(200)
+            .then(({ body: { flag } }) => {
+              expect(flag).to.contain.keys(
+                'flag_id',
+                'longitude',
+                'latitude',
+                'user_id',
+                'flag_type_id',
+                'created_at'
+              );
+            });
+        });
       });
       describe('DELETE', () => {
         it('', () => {});
