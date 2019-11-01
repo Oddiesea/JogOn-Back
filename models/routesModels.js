@@ -71,3 +71,8 @@ exports.fetchRoute = route_id => {
       return route;
     });
 };
+exports.removeRoute = route_id => {
+  return connection('routes')
+    .delete()
+    .where({ route_id });
+};

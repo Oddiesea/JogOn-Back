@@ -5,12 +5,14 @@ exports.up = function(connection) {
       .integer('flag_id')
       .references('flag_id')
       .inTable('flags')
-      .notNullable();
+      .notNullable()
+      .onDelete('CASCADE');
     junctionsTable
       .integer('route_id')
       .references('route_id')
       .inTable('routes')
-      .notNullable();
+      .notNullable()
+      .onDelete('CASCADE');
   });
 };
 

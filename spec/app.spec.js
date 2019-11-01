@@ -61,6 +61,14 @@ describe('/api', () => {
     });
   });
   describe('/flags', () => {
+    describe('/:flag_id', () => {
+      describe('GET', () => {
+        it('', () => {});
+      });
+      describe('DELETE', () => {
+        it('', () => {});
+      });
+    });
     describe('GET', () => {
       it('status: 200, responds with an object containing an array of all flags', () => {
         return request(app)
@@ -261,22 +269,46 @@ describe('/api', () => {
   });
   describe('/routes', () => {
     describe('/:route_id', () => {
-      it.only('status: 200, responds with an object containing a route', () => {
-        return request(app)
-          .get('/api/routes/1')
-          .expect(200)
-          .then(({ body: { route } }) => {
-            expect(route).to.contain.keys(
-              'route_id',
-              'poly',
-              'length_in_km',
-              'user_id',
-              'created_at',
-              'flag_ids'
-            );
+      describe('GET', () => {
+        it('status: 200, responds with an object containing a route', () => {
+          return request(app)
+            .get('/api/routes/1')
+            .expect(200)
+            .then(({ body: { route } }) => {
+              expect(route).to.contain.keys(
+                'route_id',
+                'poly',
+                'length_in_km',
+                'user_id',
+                'created_at',
+                'flag_ids'
+              );
+            });
+        });
+      });
+      describe('DELETE', () => {
+        it('status: 204, deletes the route', () => {
+          return request(app)
+            .delete('/api/routes/1')
+            .expect(204);
+        });
+      });
+      describe('INVALID METHODS', () => {
+        it('status: 405 for methods POST, PATCH, PUT', () => {
+          const invalidMethods = ['post', 'patch', 'put'];
+          const promises = invalidMethods.map(method => {
+            return request(app)
+              [method]('/api/routes/1')
+              .expect(405)
+              .then(({ body: { msg } }) => {
+                expect(msg).to.equal('Invalid method.');
+              });
           });
+          return Promise.all(promises);
+        });
       });
     });
+
     describe('GET', () => {
       it('status: 200, responds with an object containing an array of all routes', () => {
         return request(app)
