@@ -1,6 +1,6 @@
 const {
   fetchAllFlags,
-  addFlag,
+  addFlags,
   fetchFlag,
   removeFlag
 } = require('../models/flagsModels');
@@ -17,16 +17,13 @@ exports.getAllFlags = (req, res, next) => {
     .catch(next);
 };
 
-exports.postFlag = (req, res, next) => {
+exports.postFlags = (req, res, next) => {
   // IF OBJECT WITH VALUE OF FLAGS WITH ARRAY, WILL MAP OVER ALL, OTHERWISE JUST POSTS
-  if (req.body.flags) {
-    req.body.flags.map(flag => {
-      exports.postFlag({ body: { flag } }, res, next);
-    });
-  } else {
-    addFlag(req.body)
-      .then(flag => {
-        res.status(201).send({ flag });
+  const { flags } = req.body;
+  addFlags(flags)
+    .then(flags => {
+      res.status(201).send({ flags });
+      flags.forEach(flag => {
         fetchAllRoutes({
           longitude: flag.longitude,
           latitude: flag.latitude
@@ -38,9 +35,9 @@ exports.postFlag = (req, res, next) => {
           });
           return addJunctions(junctions);
         });
-      })
-      .catch(next);
-  }
+      });
+    })
+    .catch(next);
 };
 
 exports.getFlag = (req, res, next) => {

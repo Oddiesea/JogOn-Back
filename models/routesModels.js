@@ -20,7 +20,8 @@ exports.fetchAllRoutes = ({
       'routes.created_at',
       'start_lat',
       'start_long',
-      connection.raw('ARRAY_AGG(DISTINCT(flags.flag_type_id)) as flag_type_ids')
+      connection.raw('ARRAY_AGG(flags.flag_type_id) as flag_type_ids')
+      // REMOVED DISTINCT TO GET TOTAL NUMBER OF FLAGS ON A ROUTE IN FRONT END
     )
     .from('routes')
     .leftJoin('junctions', 'junctions.route_id', 'routes.route_id')

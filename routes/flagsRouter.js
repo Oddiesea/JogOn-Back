@@ -1,7 +1,7 @@
 const flagsRouter = require('express').Router();
 const {
   getAllFlags,
-  postFlag,
+  postFlags,
   getFlag,
   deleteFlag
 } = require('../controllers/flagsControllers');
@@ -10,7 +10,7 @@ const { handle405s } = require('../errors');
 flagsRouter
   .route('/')
   .get(getAllFlags)
-  .post(postFlag)
+  .post(postFlags)
   .all(handle405s);
 
 flagsRouter
