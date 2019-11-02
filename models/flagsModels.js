@@ -30,11 +30,11 @@ exports.fetchAllFlags = ({
     });
 };
 
-exports.addFlag = flagObj => {
+exports.addFlags = flags => {
   return connection('flags')
-    .insert(flagObj, '*')
-    .then(([flag]) => {
-      return flag;
+    .insert(flags, '*')
+    .then(flags => {
+      return flags;
     });
 };
 

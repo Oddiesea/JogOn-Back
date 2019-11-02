@@ -196,18 +196,22 @@ describe('/api', () => {
       });
     });
     describe('POST', () => {
-      it('status: 201, responds with an object of the new flag', () => {
+      it('status: 201, responds with an object containing an array of the new flags', () => {
         return request(app)
           .post('/api/flags')
           .send({
-            latitude: 66.66,
-            longitude: 77.77,
-            user_id: 1,
-            flag_type_id: 1
+            flags: [
+              {
+                latitude: 66.66,
+                longitude: 77.77,
+                user_id: 1,
+                flag_type_id: 1
+              }
+            ]
           })
           .expect(201)
-          .then(({ body: { flag } }) => {
-            expect(flag).to.contain.keys(
+          .then(({ body: { flags } }) => {
+            expect(flags[0]).to.contain.keys(
               'flag_id',
               'longitude',
               'latitude',
@@ -215,16 +219,59 @@ describe('/api', () => {
               'flag_type_id',
               'created_at'
             );
-            expect(flag.longitude).to.equal(77.77);
+            expect(flags[0].longitude).to.equal(77.77);
+          });
+      });
+      it('status: 201, responds with an object containing an array of the new flags where several flags are posted together', () => {
+        return request(app)
+          .post('/api/flags')
+          .send({
+            flags: [
+              {
+                latitude: 11.11,
+                longitude: 22.22,
+                user_id: 1,
+                flag_type_id: 1
+              },
+              {
+                latitude: 33.33,
+                longitude: 44.44,
+                user_id: 1,
+                flag_type_id: 1
+              },
+              {
+                latitude: 55.55,
+                longitude: 66.66,
+                user_id: 1,
+                flag_type_id: 1
+              }
+            ]
+          })
+          .expect(201)
+          .then(({ body: { flags } }) => {
+            expect(flags[0]).to.contain.keys(
+              'flag_id',
+              'longitude',
+              'latitude',
+              'user_id',
+              'flag_type_id',
+              'created_at'
+            );
+            expect(flags[0].longitude).to.equal(22.22);
+            expect(flags[2].latitude).to.equal(55.55);
           });
       });
       it('status: 400, where flag object is missing info', () => {
         return request(app)
           .post('/api/flags')
           .send({
-            latitude: 66.66,
-            user_id: 1,
-            flag_type_id: 1
+            flags: [
+              {
+                latitude: 66.66,
+                user_id: 1,
+                flag_type_id: 1
+              }
+            ]
           })
           .expect(400)
           .then(({ body: { msg } }) => {
@@ -235,10 +282,14 @@ describe('/api', () => {
         return request(app)
           .post('/api/flags')
           .send({
-            latitude: 66.66,
-            longitude: 'HELLO!!',
-            user_id: 1,
-            flag_type_id: 1
+            flags: [
+              {
+                latitude: 66.66,
+                longitude: 'HELLO!!',
+                user_id: 1,
+                flag_type_id: 1
+              }
+            ]
           })
           .expect(400)
           .then(({ body: { msg } }) => {
@@ -249,10 +300,14 @@ describe('/api', () => {
         return request(app)
           .post('/api/flags')
           .send({
-            latitude: 66.66,
-            longitude: 77.77,
-            user_id: 999,
-            flag_type_id: 1
+            flags: [
+              {
+                latitude: 66.66,
+                longitude: 77.77,
+                user_id: 999,
+                flag_type_id: 1
+              }
+            ]
           })
           .expect(422)
           .then(({ body: { msg } }) => {
@@ -263,10 +318,14 @@ describe('/api', () => {
         return request(app)
           .post('/api/flags')
           .send({
-            latitude: 66.66,
-            longitude: 77.77,
-            user_id: 1,
-            flag_type_id: 999
+            flags: [
+              {
+                latitude: 66.66,
+                longitude: 77.77,
+                user_id: 1,
+                flag_type_id: 999
+              }
+            ]
           })
           .expect(422)
           .then(({ body: { msg } }) => {
