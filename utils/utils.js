@@ -32,7 +32,7 @@ exports.routeAreaFinder = route => {
       lats.push(coord[0]);
       longs.push(coord[1]);
     });
-    route.start_location = `POINTS(${points[0][0]} ${points[0][1]}`;
+    route.start_location = `POINT(${points[0][0]} ${points[0][1]}`;
     route.min_lat = Math.min(...lats) - padding;
     route.max_lat = Math.max(...lats) + padding;
     route.min_long = Math.min(...longs) - padding;
@@ -44,22 +44,21 @@ exports.routeAreaFinder = route => {
 exports.routeFlagger = (flag, route) => {
   // THIS VARIABLE DETERMINES THE FLAG RADIUS
 
-  const flagRadius = 0.00003;
+  const flagRadius = 3;
   const points = polyline.decode(route.poly);
   const { latitude, longitude } = flag;
   if (
     points.find(point => {
-      const x = 1.5 * (latitude - point[0]);
-      const y = longitude - point[1];
-      const hypot = Math.sqrt(x ** 2 + y ** 2);
-      return hypot <= flagRadius;
+      return (
+        latLongToMeters(point[0], point[1], latitude, longitude) <= flagRadius
+      );
     })
   )
     return true;
   return false;
 };
 
-exports.latLongToMeters = (lat1, lon1, lat2, lon2) => {
+latLongToMeters = (lat1, lon1, lat2, lon2) => {
   // generally used geo measurement function
   const R = 6378.137; // Radius of earth in KM
   const dLat = (lat2 * Math.PI) / 180 - (lat1 * Math.PI) / 180;
