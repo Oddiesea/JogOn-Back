@@ -13,7 +13,7 @@ exports.getAllRoutes = (req, res, next) => {
     .then(routes => {
       res.status(200).send({ routes });
     })
-    .catch(console.log);
+    .catch(next);
 };
 
 exports.postRoute = (req, res, next) => {
