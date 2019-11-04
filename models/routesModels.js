@@ -22,6 +22,8 @@ exports.fetchAllRoutes = ({
       'max_long',
       'routes.user_id',
       'routes.created_at',
+      'name',
+      'start_location',
       connection.raw('ARRAY_AGG(flags.flag_type_id) as flag_type_ids')
     )
     .from('routes')

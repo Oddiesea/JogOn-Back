@@ -14,6 +14,7 @@ exports.up = function(connection) {
     routesTable.specificType('min_long', 'double precision').notNullable();
     routesTable.specificType('max_long', 'double precision').notNullable();
     routesTable.text('start_location').notNullable();
+    routesTable.string('name').notNullable();
   });
 };
 
