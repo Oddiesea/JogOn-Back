@@ -521,13 +521,12 @@ describe('/api', () => {
               expect(routes[0].user_id).to.equal(3);
             });
         });
-        it('accepts a query of ?start_lat=**&start_long=**', () => {
+        it('accepts a query of ?user_lat=**&user_long=**', () => {
           return request(app)
-            .get('/api/routes?start_lat=15.0&start_long=1.5')
+            .get('/api/routes?user_lat=15.0&user_long=1.5')
             .expect(200)
             .then(({ body: { routes } }) => {
-              expect(routes[0].start_lat).to.equal(15.0);
-              expect(routes[0].start_long).to.equal(1.5);
+              expect(routes).to.be.ascendingBy('distance_to_route');
             });
         });
       });

@@ -10,8 +10,7 @@ module.exports = [
     max_lat: 2.2,
     min_long: 1.1,
     max_long: 2.2,
-    start_lat: 1.1,
-    start_long: 1.1
+    start_location: 'POINT(1.1 1.1)'
   },
   {
     poly: 'ytfgjiuiu8y8u8787879898989dhywhcvyhxk',
@@ -21,8 +20,7 @@ module.exports = [
     max_lat: 2.2,
     min_long: 1.1,
     max_long: 2.2,
-    start_lat: 1.1,
-    start_long: 1.1,
+    start_location: 'POINT(1.1 1.1)',
     created_at: '1990-01-01'
   },
   {
@@ -33,8 +31,7 @@ module.exports = [
     max_lat: 2.2,
     min_long: 1.1,
     max_long: 2.2,
-    start_lat: 1.1,
-    start_long: 1.1
+    start_location: 'POINT(1.1 1.1)'
   },
   {
     poly: testPoly,
@@ -44,7 +41,6 @@ module.exports = [
     max_lat: 335.123456,
     min_long: 1.5,
     max_long: 3.3,
-    start_lat: 15,
-    start_long: 1.5
+    start_location: 'POINT(15.0 1.5)'
   }
 ];
