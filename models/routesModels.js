@@ -1,12 +1,16 @@
 const connection = require('../connection');
-
+const knexPostgis = require('knex-postgis');
+const st = knexPostgis(connection);
 exports.fetchAllRoutes = ({
   longitude,
   latitude,
   sort_by,
   order = 'desc',
-  user_id
+  user_id,
+  user_lat,
+  user_long
 }) => {
+  const userlocation = `POINT(${user_lat} ${user_long})`;
   return connection
     .select(
       'routes.route_id',
@@ -18,11 +22,9 @@ exports.fetchAllRoutes = ({
       'max_long',
       'routes.user_id',
       'routes.created_at',
-      'start_lat',
-      'start_long',
       'name',
+      'start_location',
       connection.raw('ARRAY_AGG(flags.flag_type_id) as flag_type_ids')
-      // REMOVED DISTINCT TO GET TOTAL NUMBER OF FLAGS ON A ROUTE IN FRONT END
     )
     .from('routes')
     .leftJoin('junctions', 'junctions.route_id', 'routes.route_id')
@@ -39,16 +41,24 @@ exports.fetchAllRoutes = ({
       if (user_id) {
         query.where('routes.user_id', user_id);
       }
-      // if (start_lat && start_long) {
-      //   query.orderBy(
-      //     connection.raw(
-      //       `ST_MakeLine(ST_MakePoint(${start_lat},${start_long}),ST_MakeLine(start_lat,start_long)`
-      //     ),
-      //     order
-      //   );
-      // } else {
-      query.orderBy(sort_by || 'routes.created_at', order);
-      // }
+      if (user_lat && user_long && !sort_by) {
+        query.select(
+          st
+            .distanceSphere(
+              st.geomFromText(userlocation, 4326),
+              st.geomFromText('start_location', 4326)
+            )
+            .as('distance_to_route')
+        );
+        query.orderBy(
+          st.distanceSphere(
+            st.geomFromText(userlocation, 4326),
+            st.geomFromText('start_location', 4326)
+          )
+        );
+      } else {
+        query.orderBy(sort_by || 'routes.created_at', order);
+      }
     })
     .then(routes => {
       return routes;
@@ -74,8 +84,7 @@ exports.fetchRoute = route_id => {
       'max_long',
       'routes.user_id',
       'routes.created_at',
-      'start_lat',
-      'start_long',
+      'start_location',
       connection.raw('ARRAY_AGG(DISTINCT(flags.flag_id)) as flag_ids')
     )
     .where('routes.route_id', '=', route_id)
