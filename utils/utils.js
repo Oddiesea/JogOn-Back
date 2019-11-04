@@ -32,7 +32,7 @@ exports.routeAreaFinder = route => {
       lats.push(coord[0]);
       longs.push(coord[1]);
     });
-    route.start_location = `POINT(${points[0][0]} ${points[0][1]}`;
+    route.start_location = `POINT(${points[0][0]} ${points[0][1]})`;
     route.min_lat = Math.min(...lats) - padding;
     route.max_lat = Math.max(...lats) + padding;
     route.min_long = Math.min(...longs) - padding;

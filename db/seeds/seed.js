@@ -1,5 +1,9 @@
 const {
-  testData: { users, flags, flag_types, routes, junctions }
+  users,
+  flags,
+  flag_types,
+  routes,
+  junctions
 } = require('../data/index');
 
 exports.seed = function(connection) {

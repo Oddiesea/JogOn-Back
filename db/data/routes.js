@@ -1,50 +1,44 @@
-const polyline = require('@mapbox/polyline');
-const testPoly = polyline.encode([[15.0, 1.5], [22.2, 2.2], [33.3, 3.3]]);
-
 module.exports = [
   {
-    poly: 'fdyugehwfdbweuy7fuijwehi67892389yuhjeidbgycghwby',
-    length_in_km: 5.45,
-    user_id: 1,
-    min_lat: 1.1,
-    max_lat: 2.2,
-    min_long: 1.1,
-    max_long: 2.2,
-    start_location: 'POINT(1.1 1.1)',
-    name: 'test route 1'
+    poly:
+      'izigIrbmH@?A?CDCDCB@FC@?@@BAD?B?B@BABABABCBA@CBA?C@A@A@AB?AA@C??BA?C??@A?A?ACC?AAA?ACACACEECCE@A@AAEAA?A@CGA@C??CC?ECA?A?CEEACFGN@?@BADANAN?B?B?B?F@PBAAD@D?F?@?B?F?B',
+    length_in_km: 0.152,
+    min_lat: 53.79505,
+    max_lat: 53.79587,
+    min_long: -1.54775,
+    max_long: -1.54679,
+    start_location: 'POINT(53.79509 -1.54682)',
+    name: "Dave's outing",
+    user_id: 1
   },
   {
-    poly: 'ytfgjiuiu8y8u8787879898989dhywhcvyhxk',
-    length_in_km: 6.45,
-    user_id: 2,
-    min_lat: 1.1,
-    max_lat: 2.2,
-    min_long: 1.1,
-    max_long: 2.2,
-    start_location: 'POINT(1.1 1.1)',
-    created_at: '1990-01-01',
-    name: 'test route 2'
-  },
-  {
-    poly: 'duhewjfhiuyeuowhf7t43iyr7474386582390rhckjchqiuef',
-    length_in_km: 10.5,
-    user_id: 3,
-    min_lat: 1.1,
-    max_lat: 2.2,
-    min_long: 1.1,
-    max_long: 2.2,
-    start_location: 'POINT(1.1 1.1)',
-    name: 'test route 3'
-  },
-  {
-    poly: testPoly,
-    length_in_km: 6.4,
-    user_id: 4,
-    min_lat: 15.0,
-    max_lat: 335.123456,
-    min_long: 1.5,
-    max_long: 3.3,
-    start_location: 'POINT(15.0 1.5)',
-    name: 'test route 4'
+    poly:
+      'w_jgIpimH?AAC?E?C@??GAA?C@C@A?C@C@E?C@C?C@C@A@C?E@CAIEUBA@ACG@??E@CB@FBD@@?@A?AB@BBBABCBC@A@@@@B?B@@A@A?AB@D?B?B@@?@@DCBAB?BAB?@@BA@A@A@E@CBE?C@ABC@A@C@A@A@A?ABC@A@G?CAC?A@C@C',
+    length_in_km: 0.158,
+    min_lat: 53.79512,
+    max_lat: 53.796,
+    min_long: -1.54796,
+    max_long: -1.54679,
+    start_location: 'POINT(53.79596 -1.54793)',
+    name: "Dave's return",
+    user_id: 1
   }
 ];
+
+// {
+//       "route_id": 5,
+//       "poly": "yyigIvbmHCO?ACH?DAB?NAPCJCHQJYF[@MDE@OEKCG?MCGCGCGMEKEECK@D?G?GESAAAGIACG?KB]?OFMBICE?GBGDE@C@GBIBK@QI[J@HKBIDO@MBMC]C_@GWEOGMK?M?ODQNMFIFIBKHEBIOG]CQCQAKCEFc@@SDSDSFSDQ@Q@KDIN?HAV@NCP?L?JLFLDNBL@PATCZ?P@NAT?N?\\?M@ECCJVMO?KB?@BNNRJVBFEJFJ@LDNIP?LER?BNi@Z@XSnAPZHbAGLGLC^YCBXEN",
+//       "length_in_km": 0.917,
+//       "min_lat": 53.7949,
+//       "max_lat": 53.79671,
+//       "min_long": -1.54731,
+//       "max_long": -1.54371,
+//       "user_id": 1,
+//       "created_at": "2019-11-04T15:15:26.818Z",
+//       "name": "Doge McDogeFace",
+//       "start_location": "POINT(53.79501 -1.54684",
+//       "flag_type_ids": [
+//         1,
+//         2
+//       ]
+//     }
