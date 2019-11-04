@@ -476,7 +476,8 @@ describe('/api', () => {
               'poly',
               'length_in_km',
               'user_id',
-              'created_at'
+              'created_at',
+              'name'
             );
           });
       });
@@ -539,7 +540,8 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
-            user_id: 1
+            user_id: 1,
+            name: 'my test route'
           })
           .expect(201)
           .then(({ body: { route } }) => {
@@ -552,7 +554,8 @@ describe('/api', () => {
               'max_lat',
               'min_lat',
               'min_long',
-              'max_long'
+              'max_long',
+              'name'
             );
             expect(route.length_in_km).to.equal(9.2);
           });
@@ -576,7 +579,8 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 'HELLO!!',
-            user_id: 1
+            user_id: 1,
+            name: 'test route'
           })
           .expect(400)
           .then(({ body: { msg } }) => {
@@ -589,7 +593,8 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
-            user_id: 999
+            user_id: 999,
+            name: 'test route'
           })
           .expect(422)
           .then(({ body: { msg } }) => {
