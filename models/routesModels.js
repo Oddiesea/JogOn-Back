@@ -41,6 +41,9 @@ exports.fetchAllRoutes = ({
       if (user_id) {
         query.where('routes.user_id', user_id);
       }
+      if (p) {
+        query.limit(10).offset(p*10)
+      }
       if (user_lat && user_long && !sort_by) {
         query.select(
           st

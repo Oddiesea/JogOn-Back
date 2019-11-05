@@ -530,6 +530,14 @@ describe('/api', () => {
               expect(routes).to.be.ascendingBy('distance_to_route');
             });
         });
+        it('limits the results by 10 per page, selected using a ?p=** query', () => {
+          return request(app)
+            .get('/api/routes?p=1')
+            .expect(200)
+            .then(({ body: { routes } }) => {
+              expect(routes.length).to.be.below(11);
+            });
+        });
       });
     });
     describe('POST', () => {
