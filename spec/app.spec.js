@@ -14,17 +14,6 @@ beforeEach(function() {
 
 describe('/api', () => {
   describe('/users', () => {
-    describe('GET', () => {
-      it('status: 200, responds with an object containing an array of all users', () => {
-        return request(app)
-          .get('/api/users')
-          .expect(200)
-          .then(({ body: { users } }) => {
-            expect(users.length).to.equal(6);
-            expect(users[0]).to.contain.keys('username', 'user_id');
-          });
-      });
-    });
     describe('POST', () => {
       it('status: 201, responds with an object of the new user', () => {
         return request(app)
@@ -46,8 +35,8 @@ describe('/api', () => {
       });
     });
     describe('INVALID METHODS', () => {
-      it('status: 405 for methods DELETE, PATCH, PUT', () => {
-        const invalidMethods = ['delete', 'patch', 'put'];
+      it('status: 405 for methods DELETE, PATCH, PUT,GET', () => {
+        const invalidMethods = ['delete', 'patch', 'put', 'get'];
         const promises = invalidMethods.map(method => {
           return request(app)
             [method]('/api/users')
