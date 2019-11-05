@@ -8,8 +8,12 @@ exports.fetchAllRoutes = ({
   order = 'desc',
   user_id,
   user_lat,
-  user_long
+  user_long,
+  p
 }) => {
+  if (p && isNaN(+p)) {
+    throw { status: 400, msg: 'Bad request.' };
+  }
   const userlocation = `POINT(${user_lat} ${user_long})`;
   return connection
     .select(
@@ -42,7 +46,7 @@ exports.fetchAllRoutes = ({
         query.where('routes.user_id', user_id);
       }
       if (p) {
-        query.limit(10).offset(p*10)
+        query.limit(10).offset((p - 1) * 10);
       }
       if (user_lat && user_long && !sort_by) {
         query.select(

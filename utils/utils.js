@@ -3,6 +3,14 @@ const polyline = require('@mapbox/polyline');
 exports.minMaxLatLong = region => {
   const { latitude, latitudeDelta, longitude, longitudeDelta } = region;
   if (latitude && latitudeDelta && longitude && longitudeDelta) {
+    if (
+      isNaN(+latitude) ||
+      isNaN(+longitude) ||
+      isNaN(+latitudeDelta) ||
+      isNaN(+longitudeDelta)
+    ) {
+      throw { status: 400, msg: 'Bad request.' };
+    }
     //PADDING SHOULD BE FLAG RADIUS
     const padding = 0.00003;
 
