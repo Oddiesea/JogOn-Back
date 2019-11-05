@@ -17,7 +17,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/api', authenticator);
+app.use('/', authenticator);
 app.use('/api', apiRouter);
 app.use('/*', handle404s);
 
