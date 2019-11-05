@@ -22,23 +22,17 @@ module.exports = [
     start_location: 'POINT(53.79596 -1.54793)',
     name: "Dave's return",
     user_id: 1
+  },
+  {
+    poly:
+      'yyigIvbmHCO?ACH?DAB?NAPCJCHQJYF[@MDE@OEKCG?MCGCGCGMEKEECK@D?G?GESAAAGIACG?KB]?OFMBICE?GBGDE@C@GBIBK@QI[J@HKBIDO@MBMC]C_@GWEOGMK?M?ODQNMFIFIBKHEBIOG]CQCQAKCEFc@@SDSDSFSDQ@Q@KDIN?HAV@NCP?L?JLFLDNBL@PATCZ?P@NAT?N?\\?M@ECCJVMO?KB?@BNNRJVBFEJFJ@LDNIP?LER?BNi@Z@XSnAPZHbAGLGLC^YCBXEN',
+    length_in_km: 0.917,
+    min_lat: 53.7949,
+    max_lat: 53.79671,
+    min_long: -1.54731,
+    max_long: -1.54371,
+    start_location: 'POINT(53.79501 -1.54684)',
+    name: 'Doge McDogeFace',
+    user_id: 5
   }
 ];
-
-// {
-//       "route_id": 5,
-//       "poly": "yyigIvbmHCO?ACH?DAB?NAPCJCHQJYF[@MDE@OEKCG?MCGCGCGMEKEECK@D?G?GESAAAGIACG?KB]?OFMBICE?GBGDE@C@GBIBK@QI[J@HKBIDO@MBMC]C_@GWEOGMK?M?ODQNMFIFIBKHEBIOG]CQCQAKCEFc@@SDSDSFSDQ@Q@KDIN?HAV@NCP?L?JLFLDNBL@PATCZ?P@NAT?N?\\?M@ECCJVMO?KB?@BNNRJVBFEJFJ@LDNIP?LER?BNi@Z@XSnAPZHbAGLGLC^YCBXEN",
-//       "length_in_km": 0.917,
-//       "min_lat": 53.7949,
-//       "max_lat": 53.79671,
-//       "min_long": -1.54731,
-//       "max_long": -1.54371,
-//       "user_id": 1,
-//       "created_at": "2019-11-04T15:15:26.818Z",
-//       "name": "Doge McDogeFace",
-//       "start_location": "POINT(53.79501 -1.54684",
-//       "flag_type_ids": [
-//         1,
-//         2
-//       ]
-//     }
