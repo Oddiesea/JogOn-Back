@@ -3,6 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 const apiRouter = require('./routes/apiRouter');
+const authenticator = require('./routes/authenticator');
 const {
   handleCustomErrors,
   handlePsql400s,
@@ -16,7 +17,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+app.use('/api', authenticator);
 app.use('/api', apiRouter);
 app.use('/*', handle404s);
 
