@@ -177,6 +177,16 @@ describe('/api', () => {
               expect(flags.length).to.equal(6);
             });
         });
+        it('status: 400, when passed invalid latitude, latitudeDelta longitude or longitude Delta', () => {
+          return request(app)
+            .get(
+              '/api/flags?latitude=cats&latitudeDelta=1.0&longitude=-2.0&longitudeDelta=1.0'
+            )
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
+            });
+        });
         it('accepts a query of ?user_id=**', () => {
           return request(app)
             .get('/api/flags?user_id=3')
@@ -185,12 +195,28 @@ describe('/api', () => {
               expect(flags[0].user_id).to.equal(3);
             });
         });
+        it('status: 400, when passed an invalid user_id', () => {
+          return request(app)
+            .get('/api/flags?user_id=cats')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
+            });
+        });
         it('accepts a query of ?flag_type_id=**', () => {
           return request(app)
             .get('/api/flags?flag_type_id=3')
             .expect(200)
             .then(({ body: { flags } }) => {
               expect(flags[0].flag_type_id).to.equal(3);
+            });
+        });
+        it('status: 400, when passed an invalid flag_type_id', () => {
+          return request(app)
+            .get('/api/flags?flag_type_id=cats')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
             });
         });
       });
@@ -470,7 +496,7 @@ describe('/api', () => {
           .get('/api/routes')
           .expect(200)
           .then(({ body: { routes } }) => {
-            expect(routes.length).to.equal(4);
+            expect(routes.length).to.equal(20);
             expect(routes[0]).to.contain.keys(
               'route_id',
               'poly',
@@ -495,7 +521,15 @@ describe('/api', () => {
             .get('/api/routes?latitude=20.1&longitude=2')
             .expect(200)
             .then(({ body: { routes } }) => {
-              expect(routes.length).to.equal(1);
+              expect(routes.length).to.equal(8);
+            });
+        });
+        it('status: 400, when passed latitude or longitude is the wrong data type', () => {
+          return request(app)
+            .get('/api/routes?latitude=20.1&longitude=Hello')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
             });
         });
         it('orders the results descendingly by created_at by default', () => {
@@ -514,6 +548,14 @@ describe('/api', () => {
               expect(routes).to.be.descendingBy('length_in_km');
             });
         });
+        it('status: 400, when passed a sort_by value of a non-existent column', () => {
+          return request(app)
+            .get('/api/routes?sort_by=cats')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
+            });
+        });
         it('limits the results with a query of ?user_id=**', () => {
           return request(app)
             .get('/api/routes?user_id=3')
@@ -522,12 +564,44 @@ describe('/api', () => {
               expect(routes[0].user_id).to.equal(3);
             });
         });
+        it('status: 400, when passed an invalid user_id', () => {
+          return request(app)
+            .get('/api/routes?user_id=cats')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
+            });
+        });
         it('accepts a query of ?user_lat=**&user_long=**', () => {
           return request(app)
             .get('/api/routes?user_lat=15.0&user_long=1.5')
             .expect(200)
             .then(({ body: { routes } }) => {
               expect(routes).to.be.ascendingBy('distance_to_route');
+            });
+        });
+        it('status: 400, when passed an invalid user_lat or user_long type', () => {
+          return request(app)
+            .get('/api/routes?user_lat=hi&user_long=ello')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
+            });
+        });
+        it('limits the results by 10 per page, selected using a ?p=** query', () => {
+          return request(app)
+            .get('/api/routes?p=1')
+            .expect(200)
+            .then(({ body: { routes } }) => {
+              expect(routes.length).to.be.below(11);
+            });
+        });
+        it('status: 400, when passed an invalid page', () => {
+          return request(app)
+            .get('/api/routes?p=cats')
+            .expect(400)
+            .then(({ body: { msg } }) => {
+              expect(msg).to.equal('Bad request.');
             });
         });
       });
