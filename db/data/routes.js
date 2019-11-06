@@ -9,7 +9,7 @@ module.exports = [
     max_long: -1.54679,
     start_location: 'POINT(53.79509 -1.54682)',
     name: "Dave's outing",
-    user_id: 1
+    user_id: 'Dave'
   },
   {
     poly:
@@ -21,7 +21,7 @@ module.exports = [
     max_long: -1.54679,
     start_location: 'POINT(53.79596 -1.54793)',
     name: "Dave's return",
-    user_id: 1
+    user_id: 'Dave'
   },
   {
     poly:
@@ -33,6 +33,6 @@ module.exports = [
     max_long: -1.54371,
     start_location: 'POINT(53.79501 -1.54684)',
     name: 'Doge McDogeFace',
-    user_id: 5
+    user_id: 'Patrick'
   }
 ];

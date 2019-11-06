@@ -5,7 +5,7 @@ module.exports = [
   {
     poly: 'fdyugehwfdbweuy7fuijwehi67892389yuhjeidbgycghwby',
     length_in_km: 5.45,
-    user_id: 1,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -16,7 +16,7 @@ module.exports = [
   {
     poly: 'ytfgjiuiu8y8u8787879898989dhywhcvyhxk',
     length_in_km: 6.45,
-    user_id: 2,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -28,7 +28,7 @@ module.exports = [
   {
     poly: 'duhewjfhiuyeuowhf7t43iyr7474386582390rhckjchqiuef',
     length_in_km: 10.5,
-    user_id: 3,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -39,7 +39,7 @@ module.exports = [
   {
     poly: testPoly,
     length_in_km: 6.4,
-    user_id: 4,
+    user_id: 'Dave',
     min_lat: 15.0,
     max_lat: 335.123456,
     min_long: 1.5,
@@ -50,7 +50,7 @@ module.exports = [
   {
     poly: 'duhewjfhiuyeuowhf7t43iyr7474386582390rhckjchqiuef',
     length_in_km: 10.5,
-    user_id: 3,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -61,7 +61,7 @@ module.exports = [
   {
     poly: testPoly,
     length_in_km: 6.4,
-    user_id: 4,
+    user_id: 'Dave',
     min_lat: 15.0,
     max_lat: 335.123456,
     min_long: 1.5,
@@ -72,7 +72,7 @@ module.exports = [
   {
     poly: 'duhewjfhiuyeuowhf7t43iyr7474386582390rhckjchqiuef',
     length_in_km: 10.5,
-    user_id: 3,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -83,7 +83,7 @@ module.exports = [
   {
     poly: testPoly,
     length_in_km: 6.4,
-    user_id: 4,
+    user_id: 'Dave',
     min_lat: 15.0,
     max_lat: 335.123456,
     min_long: 1.5,
@@ -94,7 +94,7 @@ module.exports = [
   {
     poly: 'duhewjfhiuyeuowhf7t43iyr7474386582390rhckjchqiuef',
     length_in_km: 10.5,
-    user_id: 3,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -105,7 +105,7 @@ module.exports = [
   {
     poly: testPoly,
     length_in_km: 6.4,
-    user_id: 4,
+    user_id: 'Dave',
     min_lat: 15.0,
     max_lat: 335.123456,
     min_long: 1.5,
@@ -116,7 +116,7 @@ module.exports = [
   {
     poly: 'fdyugehwfdbweuy7fuijwehi67892389yuhjeidbgycghwby',
     length_in_km: 5.45,
-    user_id: 1,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -127,7 +127,7 @@ module.exports = [
   {
     poly: 'ytfgjiuiu8y8u8787879898989dhywhcvyhxk',
     length_in_km: 6.45,
-    user_id: 2,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -139,7 +139,7 @@ module.exports = [
   {
     poly: 'duhewjfhiuyeuowhf7t43iyr7474386582390rhckjchqiuef',
     length_in_km: 10.5,
-    user_id: 3,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -150,7 +150,7 @@ module.exports = [
   {
     poly: testPoly,
     length_in_km: 6.4,
-    user_id: 4,
+    user_id: 'Dave',
     min_lat: 15.0,
     max_lat: 335.123456,
     min_long: 1.5,
@@ -161,7 +161,7 @@ module.exports = [
   {
     poly: 'duhewjfhiuyeuowhf7t43iyr7474386582390rhckjchqiuef',
     length_in_km: 10.5,
-    user_id: 3,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -172,7 +172,7 @@ module.exports = [
   {
     poly: testPoly,
     length_in_km: 6.4,
-    user_id: 4,
+    user_id: 'Dave',
     min_lat: 15.0,
     max_lat: 335.123456,
     min_long: 1.5,
@@ -183,7 +183,7 @@ module.exports = [
   {
     poly: 'duhewjfhiuyeuowhf7t43iyr7474386582390rhckjchqiuef',
     length_in_km: 10.5,
-    user_id: 3,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -194,7 +194,7 @@ module.exports = [
   {
     poly: testPoly,
     length_in_km: 6.4,
-    user_id: 4,
+    user_id: 'Dave',
     min_lat: 15.0,
     max_lat: 335.123456,
     min_long: 1.5,
@@ -205,7 +205,7 @@ module.exports = [
   {
     poly: 'duhewjfhiuyeuowhf7t43iyr7474386582390rhckjchqiuef',
     length_in_km: 10.5,
-    user_id: 3,
+    user_id: 'Dave',
     min_lat: 1.1,
     max_lat: 2.2,
     min_long: 1.1,
@@ -216,7 +216,7 @@ module.exports = [
   {
     poly: testPoly,
     length_in_km: 6.4,
-    user_id: 4,
+    user_id: 'Dave',
     min_lat: 15.0,
     max_lat: 335.123456,
     min_long: 1.5,
