@@ -16,8 +16,4 @@ authenticator.use((req, res, next) => {
     next();
   });
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> 650cd8afbfdd8975945d4916c4e6bcbbb09beb17
 module.exports = authenticator;
