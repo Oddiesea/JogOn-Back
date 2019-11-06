@@ -20,6 +20,7 @@ exports.postRoute = (req, res, next) => {
   const formattedRoute = routeAreaFinder(req.body);
   addRoute(formattedRoute)
     .then(route => {
+      console.log(route);
       res.status(201).send({ route });
       fetchAllFlags({
         min_lat: route.min_lat,

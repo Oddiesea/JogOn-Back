@@ -17,7 +17,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/', authenticator);
+if (process.env.NODE_ENV !== 'test') app.use('/', authenticator);
 app.use('/api', apiRouter);
 app.use('/*', handle404s);
 
