@@ -34,6 +34,7 @@ exports.addFlags = flags => {
   return connection('flags')
     .insert(flags, '*')
     .then(flags => {
+      if (flags.rows) return [];
       return flags;
     });
 };

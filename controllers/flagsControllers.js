@@ -18,7 +18,6 @@ exports.getAllFlags = (req, res, next) => {
 };
 
 exports.postFlags = (req, res, next) => {
-  // IF OBJECT WITH VALUE OF FLAGS WITH ARRAY, WILL MAP OVER ALL, OTHERWISE JUST POSTS
   const { flags } = req.body;
   addFlags(flags)
     .then(flags => {
