@@ -178,18 +178,10 @@ describe('/api', () => {
         });
         it('accepts a query of ?user_id=**', () => {
           return request(app)
-            .get('/api/flags?user_id=3')
+            .get('/api/flags?user_id=Dave')
             .expect(200)
             .then(({ body: { flags } }) => {
-              expect(flags[0].user_id).to.equal(3);
-            });
-        });
-        it('status: 400, when passed an invalid user_id', () => {
-          return request(app)
-            .get('/api/flags?user_id=cats')
-            .expect(400)
-            .then(({ body: { msg } }) => {
-              expect(msg).to.equal('Bad request.');
+              expect(flags[0].user_id).to.equal('Dave');
             });
         });
         it('accepts a query of ?flag_type_id=**', () => {
@@ -219,7 +211,7 @@ describe('/api', () => {
               {
                 latitude: 66.66,
                 longitude: 77.77,
-                user_id: 1,
+                user_id: 'Dave',
                 flag_type_id: 1
               }
             ]
@@ -245,19 +237,19 @@ describe('/api', () => {
               {
                 latitude: 11.11,
                 longitude: 22.22,
-                user_id: 1,
+                user_id: 'Dave',
                 flag_type_id: 1
               },
               {
                 latitude: 33.33,
                 longitude: 44.44,
-                user_id: 1,
+                user_id: 'Dave',
                 flag_type_id: 1
               },
               {
                 latitude: 55.55,
                 longitude: 66.66,
-                user_id: 1,
+                user_id: 'Dave',
                 flag_type_id: 1
               }
             ]
@@ -547,18 +539,10 @@ describe('/api', () => {
         });
         it('limits the results with a query of ?user_id=**', () => {
           return request(app)
-            .get('/api/routes?user_id=3')
+            .get('/api/routes?user_id=Dave')
             .expect(200)
             .then(({ body: { routes } }) => {
-              expect(routes[0].user_id).to.equal(3);
-            });
-        });
-        it('status: 400, when passed an invalid user_id', () => {
-          return request(app)
-            .get('/api/routes?user_id=cats')
-            .expect(400)
-            .then(({ body: { msg } }) => {
-              expect(msg).to.equal('Bad request.');
+              expect(routes[0].user_id).to.equal('Dave');
             });
         });
         it('accepts a query of ?user_lat=**&user_long=**', () => {
@@ -602,7 +586,7 @@ describe('/api', () => {
           .send({
             poly: 'fyg638uedhwjcyuucu6786732y8732uhdncbyghu',
             length_in_km: 9.2,
-            user_id: 1,
+            user_id: 'Dave',
             name: 'my test route'
           })
           .expect(201)
