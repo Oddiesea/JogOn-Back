@@ -1,7 +1,9 @@
 exports.up = function(connection) {
   return connection.schema.createTable('users', usersTable => {
-    usersTable.increments('user_id').primary();
-    usersTable.string('username').notNullable();
+    usersTable
+      .string('user_id')
+      .primary()
+      .notNullable();
   });
 };
 

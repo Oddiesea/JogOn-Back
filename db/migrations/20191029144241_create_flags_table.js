@@ -4,7 +4,7 @@ exports.up = function(connection) {
     flagsTable.specificType('latitude', 'double precision').notNullable();
     flagsTable.specificType('longitude', 'double precision').notNullable();
     flagsTable
-      .integer('user_id')
+      .string('user_id')
       .references('user_id')
       .inTable('users')
       .notNullable();

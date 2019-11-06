@@ -4,7 +4,7 @@ exports.up = function(connection) {
     routesTable.text('poly').notNullable();
     routesTable.float('length_in_km').notNullable();
     routesTable
-      .integer('user_id')
+      .string('user_id')
       .references('user_id')
       .inTable('users')
       .notNullable();

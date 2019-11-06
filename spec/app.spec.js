@@ -18,13 +18,13 @@ describe('/api', () => {
       it('status: 201, responds with an object of the new user', () => {
         return request(app)
           .post('/api/users')
-          .send({ username: 'Barry365' })
+          .send({ user_id: 'Barry365' })
           .expect(201)
           .then(({ body: { user } }) => {
-            expect(user).to.contain.keys('username', 'user_id');
+            expect(user).to.contain.keys('user_id');
           });
       });
-      it('status: 400, where no username is passed', () => {
+      it('status: 400, where no user_id is passed', () => {
         return request(app)
           .post('/api/users')
           .send({})
