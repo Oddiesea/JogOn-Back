@@ -32,7 +32,7 @@ module.exports = [
     min_long: -1.54731,
     max_long: -1.54371,
     start_location: 'POINT(53.79501 -1.54684)',
-    name: 'Doge McDogeFace',
+    name: "Patrick's Afternoon Jog",
     user_id: 'Patrick'
   }
 ];
